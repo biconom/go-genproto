@@ -4,7 +4,7 @@
 // - protoc             v3.15.8
 // source: client/session/v1/session.proto
 
-package service_session_pb
+package service_client_session_pb
 
 import (
 	context "context"

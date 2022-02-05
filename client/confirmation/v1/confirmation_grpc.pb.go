@@ -4,7 +4,7 @@
 // - protoc             v3.15.8
 // source: client/confirmation/v1/confirmation.proto
 
-package service_confirmation_pb
+package service_client_confirmation_pb
 
 import (
 	context "context"

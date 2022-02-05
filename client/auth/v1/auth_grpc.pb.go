@@ -4,7 +4,7 @@
 // - protoc             v3.15.8
 // source: client/auth/v1/auth.proto
 
-package service_auth_pb
+package service_client_auth_pb
 
 import (
 	context "context"
