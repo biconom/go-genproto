@@ -39,7 +39,7 @@ func NewSessionClient(cc grpc.ClientConnInterface) SessionClient {
 }
 
 func (c *sessionClient) List(ctx context.Context, in *filter.Filter, opts ...grpc.CallOption) (Session_ListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Session_ServiceDesc.Streams[0], "/biconom.session.v1.Session/List", opts...)
+	stream, err := c.cc.NewStream(ctx, &Session_ServiceDesc.Streams[0], "/biconom.client.session.v1.Session/List", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (x *sessionListClient) Recv() (*session.Session, error) {
 
 func (c *sessionClient) DeactivateOther(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/biconom.session.v1.Session/DeactivateOther", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/biconom.client.session.v1.Session/DeactivateOther", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (c *sessionClient) DeactivateOther(ctx context.Context, in *emptypb.Empty, 
 
 func (c *sessionClient) DeactivateCurrent(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/biconom.session.v1.Session/DeactivateCurrent", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/biconom.client.session.v1.Session/DeactivateCurrent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +155,7 @@ func _Session_DeactivateOther_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/biconom.session.v1.Session/DeactivateOther",
+		FullMethod: "/biconom.client.session.v1.Session/DeactivateOther",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SessionServer).DeactivateOther(ctx, req.(*emptypb.Empty))
@@ -173,7 +173,7 @@ func _Session_DeactivateCurrent_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/biconom.session.v1.Session/DeactivateCurrent",
+		FullMethod: "/biconom.client.session.v1.Session/DeactivateCurrent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SessionServer).DeactivateCurrent(ctx, req.(*emptypb.Empty))
@@ -185,7 +185,7 @@ func _Session_DeactivateCurrent_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Session_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "biconom.session.v1.Session",
+	ServiceName: "biconom.client.session.v1.Session",
 	HandlerType: (*SessionServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
