@@ -2,14 +2,14 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.15.8
-// source: client/confirmation/v1/confirmation.proto
+// source: biconom/client/confirmation/v1/confirmation.proto
 
 package service_client_confirmation_pb
 
 import (
 	context "context"
-	confirmation "github.com/biconom/go-genproto/type/confirmation"
-	filter "github.com/biconom/go-genproto/type/filter"
+	confirmation "github.com/biconom/go-genproto/biconom/type/confirmation"
+	filter "github.com/biconom/go-genproto/biconom/type/filter"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -375,5 +375,5 @@ var Confirmation_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "client/confirmation/v1/confirmation.proto",
+	Metadata: "biconom/client/confirmation/v1/confirmation.proto",
 }

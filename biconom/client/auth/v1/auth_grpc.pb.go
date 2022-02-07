@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.15.8
-// source: client/auth/v1/auth.proto
+// source: biconom/client/auth/v1/auth.proto
 
 package service_client_auth_pb
 
@@ -245,5 +245,5 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "client/auth/v1/auth.proto",
+	Metadata: "biconom/client/auth/v1/auth.proto",
 }

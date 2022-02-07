@@ -2,14 +2,14 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.15.8
-// source: client/session/v1/session.proto
+// source: biconom/client/session/v1/session.proto
 
 package service_client_session_pb
 
 import (
 	context "context"
-	filter "github.com/biconom/go-genproto/type/filter"
-	session "github.com/biconom/go-genproto/type/session"
+	filter "github.com/biconom/go-genproto/biconom/type/filter"
+	session "github.com/biconom/go-genproto/biconom/type/session"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -204,5 +204,5 @@ var Session_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "client/session/v1/session.proto",
+	Metadata: "biconom/client/session/v1/session.proto",
 }
