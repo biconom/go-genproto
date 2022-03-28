@@ -9,7 +9,6 @@ package service_client_confirmation_pb
 import (
 	context "context"
 	confirmation "github.com/biconom/go-genproto/biconom/type/confirmation"
-	filter "github.com/biconom/go-genproto/biconom/type/filter"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,13 +24,13 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ConfirmationClient interface {
-	GetById(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (*confirmation.Confirmation, error)
-	GetByMethod(ctx context.Context, in *confirmation.Confirmation_Method, opts ...grpc.CallOption) (*confirmation.Confirmation, error)
-	GenerateOneTimePassword(ctx context.Context, in *GenerateOneTimePasswordRequest, opts ...grpc.CallOption) (*confirmation.Confirmation_Field_Notification, error)
-	Confirm(ctx context.Context, in *ConfirmRequest, opts ...grpc.CallOption) (*ConfirmResponse, error)
-	Cancel(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	List(ctx context.Context, in *filter.Filter, opts ...grpc.CallOption) (Confirmation_ListClient, error)
-	LogsById(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (Confirmation_LogsByIdClient, error)
+	Get(ctx context.Context, in *confirmation.Confirmation_ID, opts ...grpc.CallOption) (*confirmation.Confirmation, error)
+	List(ctx context.Context, in *ConfirmationListRequest, opts ...grpc.CallOption) (Confirmation_ListClient, error)
+	LogGet(ctx context.Context, in *confirmation.Confirmation_Log_ID, opts ...grpc.CallOption) (*confirmation.Confirmation_Log, error)
+	LogListByConfirmation(ctx context.Context, in *ConfirmationLogListByConfirmationRequest, opts ...grpc.CallOption) (Confirmation_LogListByConfirmationClient, error)
+	GenerateOneTimePassword(ctx context.Context, in *ConfirmationGenerateOneTimePasswordRequest, opts ...grpc.CallOption) (*confirmation.Confirmation_Field_Notification, error)
+	Confirm(ctx context.Context, in *ConfirmationConfirmRequest, opts ...grpc.CallOption) (*ConfirmationConfirmResponse, error)
+	Cancel(ctx context.Context, in *confirmation.Confirmation_ID, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type confirmationClient struct {
@@ -42,52 +41,16 @@ func NewConfirmationClient(cc grpc.ClientConnInterface) ConfirmationClient {
 	return &confirmationClient{cc}
 }
 
-func (c *confirmationClient) GetById(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (*confirmation.Confirmation, error) {
+func (c *confirmationClient) Get(ctx context.Context, in *confirmation.Confirmation_ID, opts ...grpc.CallOption) (*confirmation.Confirmation, error) {
 	out := new(confirmation.Confirmation)
-	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/GetById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *confirmationClient) GetByMethod(ctx context.Context, in *confirmation.Confirmation_Method, opts ...grpc.CallOption) (*confirmation.Confirmation, error) {
-	out := new(confirmation.Confirmation)
-	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/GetByMethod", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *confirmationClient) GenerateOneTimePassword(ctx context.Context, in *GenerateOneTimePasswordRequest, opts ...grpc.CallOption) (*confirmation.Confirmation_Field_Notification, error) {
-	out := new(confirmation.Confirmation_Field_Notification)
-	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/GenerateOneTimePassword", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *confirmationClient) Confirm(ctx context.Context, in *ConfirmRequest, opts ...grpc.CallOption) (*ConfirmResponse, error) {
-	out := new(ConfirmResponse)
-	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/Confirm", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *confirmationClient) Cancel(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/Cancel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *confirmationClient) List(ctx context.Context, in *filter.Filter, opts ...grpc.CallOption) (Confirmation_ListClient, error) {
+func (c *confirmationClient) List(ctx context.Context, in *ConfirmationListRequest, opts ...grpc.CallOption) (Confirmation_ListClient, error) {
 	stream, err := c.cc.NewStream(ctx, &Confirmation_ServiceDesc.Streams[0], "/biconom.client.confirmation.v1.Confirmation/List", opts...)
 	if err != nil {
 		return nil, err
@@ -119,12 +82,21 @@ func (x *confirmationListClient) Recv() (*confirmation.Confirmation, error) {
 	return m, nil
 }
 
-func (c *confirmationClient) LogsById(ctx context.Context, in *confirmation.Confirmation_Id, opts ...grpc.CallOption) (Confirmation_LogsByIdClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Confirmation_ServiceDesc.Streams[1], "/biconom.client.confirmation.v1.Confirmation/LogsById", opts...)
+func (c *confirmationClient) LogGet(ctx context.Context, in *confirmation.Confirmation_Log_ID, opts ...grpc.CallOption) (*confirmation.Confirmation_Log, error) {
+	out := new(confirmation.Confirmation_Log)
+	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/LogGet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &confirmationLogsByIdClient{stream}
+	return out, nil
+}
+
+func (c *confirmationClient) LogListByConfirmation(ctx context.Context, in *ConfirmationLogListByConfirmationRequest, opts ...grpc.CallOption) (Confirmation_LogListByConfirmationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Confirmation_ServiceDesc.Streams[1], "/biconom.client.confirmation.v1.Confirmation/LogListByConfirmation", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &confirmationLogListByConfirmationClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -134,16 +106,16 @@ func (c *confirmationClient) LogsById(ctx context.Context, in *confirmation.Conf
 	return x, nil
 }
 
-type Confirmation_LogsByIdClient interface {
+type Confirmation_LogListByConfirmationClient interface {
 	Recv() (*confirmation.Confirmation_Log, error)
 	grpc.ClientStream
 }
 
-type confirmationLogsByIdClient struct {
+type confirmationLogListByConfirmationClient struct {
 	grpc.ClientStream
 }
 
-func (x *confirmationLogsByIdClient) Recv() (*confirmation.Confirmation_Log, error) {
+func (x *confirmationLogListByConfirmationClient) Recv() (*confirmation.Confirmation_Log, error) {
 	m := new(confirmation.Confirmation_Log)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -151,17 +123,44 @@ func (x *confirmationLogsByIdClient) Recv() (*confirmation.Confirmation_Log, err
 	return m, nil
 }
 
+func (c *confirmationClient) GenerateOneTimePassword(ctx context.Context, in *ConfirmationGenerateOneTimePasswordRequest, opts ...grpc.CallOption) (*confirmation.Confirmation_Field_Notification, error) {
+	out := new(confirmation.Confirmation_Field_Notification)
+	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/GenerateOneTimePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *confirmationClient) Confirm(ctx context.Context, in *ConfirmationConfirmRequest, opts ...grpc.CallOption) (*ConfirmationConfirmResponse, error) {
+	out := new(ConfirmationConfirmResponse)
+	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/Confirm", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *confirmationClient) Cancel(ctx context.Context, in *confirmation.Confirmation_ID, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/biconom.client.confirmation.v1.Confirmation/Cancel", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConfirmationServer is the server API for Confirmation service.
 // All implementations must embed UnimplementedConfirmationServer
 // for forward compatibility
 type ConfirmationServer interface {
-	GetById(context.Context, *confirmation.Confirmation_Id) (*confirmation.Confirmation, error)
-	GetByMethod(context.Context, *confirmation.Confirmation_Method) (*confirmation.Confirmation, error)
-	GenerateOneTimePassword(context.Context, *GenerateOneTimePasswordRequest) (*confirmation.Confirmation_Field_Notification, error)
-	Confirm(context.Context, *ConfirmRequest) (*ConfirmResponse, error)
-	Cancel(context.Context, *confirmation.Confirmation_Id) (*emptypb.Empty, error)
-	List(*filter.Filter, Confirmation_ListServer) error
-	LogsById(*confirmation.Confirmation_Id, Confirmation_LogsByIdServer) error
+	Get(context.Context, *confirmation.Confirmation_ID) (*confirmation.Confirmation, error)
+	List(*ConfirmationListRequest, Confirmation_ListServer) error
+	LogGet(context.Context, *confirmation.Confirmation_Log_ID) (*confirmation.Confirmation_Log, error)
+	LogListByConfirmation(*ConfirmationLogListByConfirmationRequest, Confirmation_LogListByConfirmationServer) error
+	GenerateOneTimePassword(context.Context, *ConfirmationGenerateOneTimePasswordRequest) (*confirmation.Confirmation_Field_Notification, error)
+	Confirm(context.Context, *ConfirmationConfirmRequest) (*ConfirmationConfirmResponse, error)
+	Cancel(context.Context, *confirmation.Confirmation_ID) (*emptypb.Empty, error)
 	mustEmbedUnimplementedConfirmationServer()
 }
 
@@ -169,26 +168,26 @@ type ConfirmationServer interface {
 type UnimplementedConfirmationServer struct {
 }
 
-func (UnimplementedConfirmationServer) GetById(context.Context, *confirmation.Confirmation_Id) (*confirmation.Confirmation, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
+func (UnimplementedConfirmationServer) Get(context.Context, *confirmation.Confirmation_ID) (*confirmation.Confirmation, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedConfirmationServer) GetByMethod(context.Context, *confirmation.Confirmation_Method) (*confirmation.Confirmation, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByMethod not implemented")
-}
-func (UnimplementedConfirmationServer) GenerateOneTimePassword(context.Context, *GenerateOneTimePasswordRequest) (*confirmation.Confirmation_Field_Notification, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateOneTimePassword not implemented")
-}
-func (UnimplementedConfirmationServer) Confirm(context.Context, *ConfirmRequest) (*ConfirmResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Confirm not implemented")
-}
-func (UnimplementedConfirmationServer) Cancel(context.Context, *confirmation.Confirmation_Id) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
-}
-func (UnimplementedConfirmationServer) List(*filter.Filter, Confirmation_ListServer) error {
+func (UnimplementedConfirmationServer) List(*ConfirmationListRequest, Confirmation_ListServer) error {
 	return status.Errorf(codes.Unimplemented, "method List not implemented")
 }
-func (UnimplementedConfirmationServer) LogsById(*confirmation.Confirmation_Id, Confirmation_LogsByIdServer) error {
-	return status.Errorf(codes.Unimplemented, "method LogsById not implemented")
+func (UnimplementedConfirmationServer) LogGet(context.Context, *confirmation.Confirmation_Log_ID) (*confirmation.Confirmation_Log, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogGet not implemented")
+}
+func (UnimplementedConfirmationServer) LogListByConfirmation(*ConfirmationLogListByConfirmationRequest, Confirmation_LogListByConfirmationServer) error {
+	return status.Errorf(codes.Unimplemented, "method LogListByConfirmation not implemented")
+}
+func (UnimplementedConfirmationServer) GenerateOneTimePassword(context.Context, *ConfirmationGenerateOneTimePasswordRequest) (*confirmation.Confirmation_Field_Notification, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateOneTimePassword not implemented")
+}
+func (UnimplementedConfirmationServer) Confirm(context.Context, *ConfirmationConfirmRequest) (*ConfirmationConfirmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Confirm not implemented")
+}
+func (UnimplementedConfirmationServer) Cancel(context.Context, *confirmation.Confirmation_ID) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
 }
 func (UnimplementedConfirmationServer) mustEmbedUnimplementedConfirmationServer() {}
 
@@ -203,98 +202,26 @@ func RegisterConfirmationServer(s grpc.ServiceRegistrar, srv ConfirmationServer)
 	s.RegisterService(&Confirmation_ServiceDesc, srv)
 }
 
-func _Confirmation_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(confirmation.Confirmation_Id)
+func _Confirmation_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(confirmation.Confirmation_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConfirmationServer).GetById(ctx, in)
+		return srv.(ConfirmationServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/biconom.client.confirmation.v1.Confirmation/GetById",
+		FullMethod: "/biconom.client.confirmation.v1.Confirmation/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfirmationServer).GetById(ctx, req.(*confirmation.Confirmation_Id))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Confirmation_GetByMethod_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(confirmation.Confirmation_Method)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ConfirmationServer).GetByMethod(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.client.confirmation.v1.Confirmation/GetByMethod",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfirmationServer).GetByMethod(ctx, req.(*confirmation.Confirmation_Method))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Confirmation_GenerateOneTimePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GenerateOneTimePasswordRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ConfirmationServer).GenerateOneTimePassword(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.client.confirmation.v1.Confirmation/GenerateOneTimePassword",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfirmationServer).GenerateOneTimePassword(ctx, req.(*GenerateOneTimePasswordRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Confirmation_Confirm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConfirmRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ConfirmationServer).Confirm(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.client.confirmation.v1.Confirmation/Confirm",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfirmationServer).Confirm(ctx, req.(*ConfirmRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Confirmation_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(confirmation.Confirmation_Id)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ConfirmationServer).Cancel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.client.confirmation.v1.Confirmation/Cancel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfirmationServer).Cancel(ctx, req.(*confirmation.Confirmation_Id))
+		return srv.(ConfirmationServer).Get(ctx, req.(*confirmation.Confirmation_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Confirmation_List_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(filter.Filter)
+	m := new(ConfirmationListRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -314,25 +241,97 @@ func (x *confirmationListServer) Send(m *confirmation.Confirmation) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _Confirmation_LogsById_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(confirmation.Confirmation_Id)
+func _Confirmation_LogGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(confirmation.Confirmation_Log_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfirmationServer).LogGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.client.confirmation.v1.Confirmation/LogGet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfirmationServer).LogGet(ctx, req.(*confirmation.Confirmation_Log_ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Confirmation_LogListByConfirmation_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ConfirmationLogListByConfirmationRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(ConfirmationServer).LogsById(m, &confirmationLogsByIdServer{stream})
+	return srv.(ConfirmationServer).LogListByConfirmation(m, &confirmationLogListByConfirmationServer{stream})
 }
 
-type Confirmation_LogsByIdServer interface {
+type Confirmation_LogListByConfirmationServer interface {
 	Send(*confirmation.Confirmation_Log) error
 	grpc.ServerStream
 }
 
-type confirmationLogsByIdServer struct {
+type confirmationLogListByConfirmationServer struct {
 	grpc.ServerStream
 }
 
-func (x *confirmationLogsByIdServer) Send(m *confirmation.Confirmation_Log) error {
+func (x *confirmationLogListByConfirmationServer) Send(m *confirmation.Confirmation_Log) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _Confirmation_GenerateOneTimePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfirmationGenerateOneTimePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfirmationServer).GenerateOneTimePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.client.confirmation.v1.Confirmation/GenerateOneTimePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfirmationServer).GenerateOneTimePassword(ctx, req.(*ConfirmationGenerateOneTimePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Confirmation_Confirm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfirmationConfirmRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfirmationServer).Confirm(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.client.confirmation.v1.Confirmation/Confirm",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfirmationServer).Confirm(ctx, req.(*ConfirmationConfirmRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Confirmation_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(confirmation.Confirmation_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConfirmationServer).Cancel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.client.confirmation.v1.Confirmation/Cancel",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConfirmationServer).Cancel(ctx, req.(*confirmation.Confirmation_ID))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 // Confirmation_ServiceDesc is the grpc.ServiceDesc for Confirmation service.
@@ -343,12 +342,12 @@ var Confirmation_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ConfirmationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetById",
-			Handler:    _Confirmation_GetById_Handler,
+			MethodName: "Get",
+			Handler:    _Confirmation_Get_Handler,
 		},
 		{
-			MethodName: "GetByMethod",
-			Handler:    _Confirmation_GetByMethod_Handler,
+			MethodName: "LogGet",
+			Handler:    _Confirmation_LogGet_Handler,
 		},
 		{
 			MethodName: "GenerateOneTimePassword",
@@ -370,8 +369,8 @@ var Confirmation_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 		{
-			StreamName:    "LogsById",
-			Handler:       _Confirmation_LogsById_Handler,
+			StreamName:    "LogListByConfirmation",
+			Handler:       _Confirmation_LogListByConfirmation_Handler,
 			ServerStreams: true,
 		},
 	},
