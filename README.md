@@ -5,6 +5,7 @@ export BICONOM_API_PATH="$HOME/go/src/github.com/biconom/apis"
 
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/account.proto=biconom/type/account biconom/type/account.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/agent.proto=biconom/type/agent biconom/type/agent.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/bot_key.proto=biconom/type/bot_key biconom/type/bot_key.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/condition.proto=biconom/type/condition biconom/type/condition.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/confirmation.proto=biconom/type/confirmation biconom/type/confirmation.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/contact.proto=biconom/type/contact biconom/type/contact.proto
@@ -19,7 +20,18 @@ protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/staking.proto=bico
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/ticket.proto=biconom/type/ticket biconom/type/ticket.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/until.proto=biconom/type/until biconom/type/until.proto
 
+#currency
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency_pair.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency_pair_rate_source.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency_pair_rate_source_bot_key.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/bot/currency/v1/currency.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/bot/currency/v1/currency_pair.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/bot/currency/v1/currency_pair_rate_source.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/bot/currency/v1/currency_pair_rate_source_bot_key.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency_pair.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency_pair_rate_source.proto
 
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/bot/currency/v1/currency.proto
 

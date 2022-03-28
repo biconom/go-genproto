@@ -12,7 +12,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -24,15 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CurrencyClient interface {
-	CurrencyGet(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error)
-	CurrencyList(ctx context.Context, in *CurrencyListRequest, opts ...grpc.CallOption) (Currency_CurrencyListClient, error)
-	CurrencyPairGet(ctx context.Context, in *currency.Currency_Pair_ID, opts ...grpc.CallOption) (*currency.Currency_Pair, error)
-	CurrencyPairList(ctx context.Context, in *CurrencyPairListRequest, opts ...grpc.CallOption) (Currency_CurrencyPairListClient, error)
-	CurrencyPairRateSourceGet(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source, error)
-	CurrencyPairRateSourceHeaderGet(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error)
-	CurrencyPairRateSourceValueGet(ctx context.Context, in *currency.Currency_Pair_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Value, error)
-	CurrencyPairRateSourceValueSet(ctx context.Context, in *CurrencyPairRateSourceValueSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CurrencyPairRateSourceValueList(ctx context.Context, in *CurrencyPairRateSourceValueListRequest, opts ...grpc.CallOption) (Currency_CurrencyPairRateSourceValueListClient, error)
+	Get(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error)
+	List(ctx context.Context, in *CurrencyListRequest, opts ...grpc.CallOption) (Currency_ListClient, error)
 }
 
 type currencyClient struct {
@@ -43,21 +35,21 @@ func NewCurrencyClient(cc grpc.ClientConnInterface) CurrencyClient {
 	return &currencyClient{cc}
 }
 
-func (c *currencyClient) CurrencyGet(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error) {
+func (c *currencyClient) Get(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error) {
 	out := new(currency.Currency)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyGet", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *currencyClient) CurrencyList(ctx context.Context, in *CurrencyListRequest, opts ...grpc.CallOption) (Currency_CurrencyListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Currency_ServiceDesc.Streams[0], "/biconom.bot.currency.v1.Currency/CurrencyList", opts...)
+func (c *currencyClient) List(ctx context.Context, in *CurrencyListRequest, opts ...grpc.CallOption) (Currency_ListClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Currency_ServiceDesc.Streams[0], "/biconom.bot.currency.v1.Currency/List", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &currencyCurrencyListClient{stream}
+	x := &currencyListClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -67,126 +59,17 @@ func (c *currencyClient) CurrencyList(ctx context.Context, in *CurrencyListReque
 	return x, nil
 }
 
-type Currency_CurrencyListClient interface {
+type Currency_ListClient interface {
 	Recv() (*currency.Currency, error)
 	grpc.ClientStream
 }
 
-type currencyCurrencyListClient struct {
+type currencyListClient struct {
 	grpc.ClientStream
 }
 
-func (x *currencyCurrencyListClient) Recv() (*currency.Currency, error) {
+func (x *currencyListClient) Recv() (*currency.Currency, error) {
 	m := new(currency.Currency)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *currencyClient) CurrencyPairGet(ctx context.Context, in *currency.Currency_Pair_ID, opts ...grpc.CallOption) (*currency.Currency_Pair, error) {
-	out := new(currency.Currency_Pair)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyPairGet", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *currencyClient) CurrencyPairList(ctx context.Context, in *CurrencyPairListRequest, opts ...grpc.CallOption) (Currency_CurrencyPairListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Currency_ServiceDesc.Streams[1], "/biconom.bot.currency.v1.Currency/CurrencyPairList", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &currencyCurrencyPairListClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Currency_CurrencyPairListClient interface {
-	Recv() (*currency.Currency_Pair, error)
-	grpc.ClientStream
-}
-
-type currencyCurrencyPairListClient struct {
-	grpc.ClientStream
-}
-
-func (x *currencyCurrencyPairListClient) Recv() (*currency.Currency_Pair, error) {
-	m := new(currency.Currency_Pair)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *currencyClient) CurrencyPairRateSourceGet(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source, error) {
-	out := new(currency.Currency_Pair_Rate_Source)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceGet", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *currencyClient) CurrencyPairRateSourceHeaderGet(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error) {
-	out := new(currency.Currency_Pair_Rate_Source_Header)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceHeaderGet", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *currencyClient) CurrencyPairRateSourceValueGet(ctx context.Context, in *currency.Currency_Pair_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Value, error) {
-	out := new(currency.Currency_Pair_Rate_Source_Value)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceValueGet", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *currencyClient) CurrencyPairRateSourceValueSet(ctx context.Context, in *CurrencyPairRateSourceValueSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceValueSet", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *currencyClient) CurrencyPairRateSourceValueList(ctx context.Context, in *CurrencyPairRateSourceValueListRequest, opts ...grpc.CallOption) (Currency_CurrencyPairRateSourceValueListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Currency_ServiceDesc.Streams[2], "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceValueList", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &currencyCurrencyPairRateSourceValueListClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Currency_CurrencyPairRateSourceValueListClient interface {
-	Recv() (*currency.Currency_Pair_Rate_Source_Value, error)
-	grpc.ClientStream
-}
-
-type currencyCurrencyPairRateSourceValueListClient struct {
-	grpc.ClientStream
-}
-
-func (x *currencyCurrencyPairRateSourceValueListClient) Recv() (*currency.Currency_Pair_Rate_Source_Value, error) {
-	m := new(currency.Currency_Pair_Rate_Source_Value)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -197,15 +80,8 @@ func (x *currencyCurrencyPairRateSourceValueListClient) Recv() (*currency.Curren
 // All implementations must embed UnimplementedCurrencyServer
 // for forward compatibility
 type CurrencyServer interface {
-	CurrencyGet(context.Context, *currency.Currency_ID) (*currency.Currency, error)
-	CurrencyList(*CurrencyListRequest, Currency_CurrencyListServer) error
-	CurrencyPairGet(context.Context, *currency.Currency_Pair_ID) (*currency.Currency_Pair, error)
-	CurrencyPairList(*CurrencyPairListRequest, Currency_CurrencyPairListServer) error
-	CurrencyPairRateSourceGet(context.Context, *emptypb.Empty) (*currency.Currency_Pair_Rate_Source, error)
-	CurrencyPairRateSourceHeaderGet(context.Context, *emptypb.Empty) (*currency.Currency_Pair_Rate_Source_Header, error)
-	CurrencyPairRateSourceValueGet(context.Context, *currency.Currency_Pair_ID) (*currency.Currency_Pair_Rate_Source_Value, error)
-	CurrencyPairRateSourceValueSet(context.Context, *CurrencyPairRateSourceValueSetRequest) (*emptypb.Empty, error)
-	CurrencyPairRateSourceValueList(*CurrencyPairRateSourceValueListRequest, Currency_CurrencyPairRateSourceValueListServer) error
+	Get(context.Context, *currency.Currency_ID) (*currency.Currency, error)
+	List(*CurrencyListRequest, Currency_ListServer) error
 	mustEmbedUnimplementedCurrencyServer()
 }
 
@@ -213,32 +89,11 @@ type CurrencyServer interface {
 type UnimplementedCurrencyServer struct {
 }
 
-func (UnimplementedCurrencyServer) CurrencyGet(context.Context, *currency.Currency_ID) (*currency.Currency, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyGet not implemented")
+func (UnimplementedCurrencyServer) Get(context.Context, *currency.Currency_ID) (*currency.Currency, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedCurrencyServer) CurrencyList(*CurrencyListRequest, Currency_CurrencyListServer) error {
-	return status.Errorf(codes.Unimplemented, "method CurrencyList not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairGet(context.Context, *currency.Currency_Pair_ID) (*currency.Currency_Pair, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyPairGet not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairList(*CurrencyPairListRequest, Currency_CurrencyPairListServer) error {
-	return status.Errorf(codes.Unimplemented, "method CurrencyPairList not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairRateSourceGet(context.Context, *emptypb.Empty) (*currency.Currency_Pair_Rate_Source, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyPairRateSourceGet not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairRateSourceHeaderGet(context.Context, *emptypb.Empty) (*currency.Currency_Pair_Rate_Source_Header, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyPairRateSourceHeaderGet not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairRateSourceValueGet(context.Context, *currency.Currency_Pair_ID) (*currency.Currency_Pair_Rate_Source_Value, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyPairRateSourceValueGet not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairRateSourceValueSet(context.Context, *CurrencyPairRateSourceValueSetRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CurrencyPairRateSourceValueSet not implemented")
-}
-func (UnimplementedCurrencyServer) CurrencyPairRateSourceValueList(*CurrencyPairRateSourceValueListRequest, Currency_CurrencyPairRateSourceValueListServer) error {
-	return status.Errorf(codes.Unimplemented, "method CurrencyPairRateSourceValueList not implemented")
+func (UnimplementedCurrencyServer) List(*CurrencyListRequest, Currency_ListServer) error {
+	return status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedCurrencyServer) mustEmbedUnimplementedCurrencyServer() {}
 
@@ -253,174 +108,42 @@ func RegisterCurrencyServer(s grpc.ServiceRegistrar, srv CurrencyServer) {
 	s.RegisterService(&Currency_ServiceDesc, srv)
 }
 
-func _Currency_CurrencyGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Currency_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(currency.Currency_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyGet(ctx, in)
+		return srv.(CurrencyServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyGet",
+		FullMethod: "/biconom.bot.currency.v1.Currency/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyGet(ctx, req.(*currency.Currency_ID))
+		return srv.(CurrencyServer).Get(ctx, req.(*currency.Currency_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Currency_CurrencyList_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _Currency_List_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(CurrencyListRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(CurrencyServer).CurrencyList(m, &currencyCurrencyListServer{stream})
+	return srv.(CurrencyServer).List(m, &currencyListServer{stream})
 }
 
-type Currency_CurrencyListServer interface {
+type Currency_ListServer interface {
 	Send(*currency.Currency) error
 	grpc.ServerStream
 }
 
-type currencyCurrencyListServer struct {
+type currencyListServer struct {
 	grpc.ServerStream
 }
 
-func (x *currencyCurrencyListServer) Send(m *currency.Currency) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _Currency_CurrencyPairGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(currency.Currency_Pair_ID)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyPairGet(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyPairGet",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyPairGet(ctx, req.(*currency.Currency_Pair_ID))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Currency_CurrencyPairList_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(CurrencyPairListRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(CurrencyServer).CurrencyPairList(m, &currencyCurrencyPairListServer{stream})
-}
-
-type Currency_CurrencyPairListServer interface {
-	Send(*currency.Currency_Pair) error
-	grpc.ServerStream
-}
-
-type currencyCurrencyPairListServer struct {
-	grpc.ServerStream
-}
-
-func (x *currencyCurrencyPairListServer) Send(m *currency.Currency_Pair) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _Currency_CurrencyPairRateSourceGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyPairRateSourceGet(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceGet",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyPairRateSourceGet(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Currency_CurrencyPairRateSourceHeaderGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyPairRateSourceHeaderGet(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceHeaderGet",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyPairRateSourceHeaderGet(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Currency_CurrencyPairRateSourceValueGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(currency.Currency_Pair_ID)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyPairRateSourceValueGet(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceValueGet",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyPairRateSourceValueGet(ctx, req.(*currency.Currency_Pair_ID))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Currency_CurrencyPairRateSourceValueSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CurrencyPairRateSourceValueSetRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CurrencyServer).CurrencyPairRateSourceValueSet(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/biconom.bot.currency.v1.Currency/CurrencyPairRateSourceValueSet",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CurrencyServer).CurrencyPairRateSourceValueSet(ctx, req.(*CurrencyPairRateSourceValueSetRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Currency_CurrencyPairRateSourceValueList_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(CurrencyPairRateSourceValueListRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(CurrencyServer).CurrencyPairRateSourceValueList(m, &currencyCurrencyPairRateSourceValueListServer{stream})
-}
-
-type Currency_CurrencyPairRateSourceValueListServer interface {
-	Send(*currency.Currency_Pair_Rate_Source_Value) error
-	grpc.ServerStream
-}
-
-type currencyCurrencyPairRateSourceValueListServer struct {
-	grpc.ServerStream
-}
-
-func (x *currencyCurrencyPairRateSourceValueListServer) Send(m *currency.Currency_Pair_Rate_Source_Value) error {
+func (x *currencyListServer) Send(m *currency.Currency) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -432,44 +155,14 @@ var Currency_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CurrencyServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CurrencyGet",
-			Handler:    _Currency_CurrencyGet_Handler,
-		},
-		{
-			MethodName: "CurrencyPairGet",
-			Handler:    _Currency_CurrencyPairGet_Handler,
-		},
-		{
-			MethodName: "CurrencyPairRateSourceGet",
-			Handler:    _Currency_CurrencyPairRateSourceGet_Handler,
-		},
-		{
-			MethodName: "CurrencyPairRateSourceHeaderGet",
-			Handler:    _Currency_CurrencyPairRateSourceHeaderGet_Handler,
-		},
-		{
-			MethodName: "CurrencyPairRateSourceValueGet",
-			Handler:    _Currency_CurrencyPairRateSourceValueGet_Handler,
-		},
-		{
-			MethodName: "CurrencyPairRateSourceValueSet",
-			Handler:    _Currency_CurrencyPairRateSourceValueSet_Handler,
+			MethodName: "Get",
+			Handler:    _Currency_Get_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "CurrencyList",
-			Handler:       _Currency_CurrencyList_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "CurrencyPairList",
-			Handler:       _Currency_CurrencyPairList_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "CurrencyPairRateSourceValueList",
-			Handler:       _Currency_CurrencyPairRateSourceValueList_Handler,
+			StreamName:    "List",
+			Handler:       _Currency_List_Handler,
 			ServerStreams: true,
 		},
 	},
