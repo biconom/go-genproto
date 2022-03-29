@@ -26,6 +26,8 @@ type CurrencyClient interface {
 	Get(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error)
 	List(ctx context.Context, in *CurrencyListRequest, opts ...grpc.CallOption) (Currency_ListClient, error)
 	Create(ctx context.Context, in *CurrencyCreateRequest, opts ...grpc.CallOption) (*currency.Currency, error)
+	Publish(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error)
+	Unpublish(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error)
 }
 
 type currencyClient struct {
@@ -86,6 +88,24 @@ func (c *currencyClient) Create(ctx context.Context, in *CurrencyCreateRequest, 
 	return out, nil
 }
 
+func (c *currencyClient) Publish(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error) {
+	out := new(currency.Currency)
+	err := c.cc.Invoke(ctx, "/biconom.admin.currency.v1.Currency/Publish", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *currencyClient) Unpublish(ctx context.Context, in *currency.Currency_ID, opts ...grpc.CallOption) (*currency.Currency, error) {
+	out := new(currency.Currency)
+	err := c.cc.Invoke(ctx, "/biconom.admin.currency.v1.Currency/Unpublish", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CurrencyServer is the server API for Currency service.
 // All implementations must embed UnimplementedCurrencyServer
 // for forward compatibility
@@ -93,6 +113,8 @@ type CurrencyServer interface {
 	Get(context.Context, *currency.Currency_ID) (*currency.Currency, error)
 	List(*CurrencyListRequest, Currency_ListServer) error
 	Create(context.Context, *CurrencyCreateRequest) (*currency.Currency, error)
+	Publish(context.Context, *currency.Currency_ID) (*currency.Currency, error)
+	Unpublish(context.Context, *currency.Currency_ID) (*currency.Currency, error)
 	mustEmbedUnimplementedCurrencyServer()
 }
 
@@ -108,6 +130,12 @@ func (UnimplementedCurrencyServer) List(*CurrencyListRequest, Currency_ListServe
 }
 func (UnimplementedCurrencyServer) Create(context.Context, *CurrencyCreateRequest) (*currency.Currency, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedCurrencyServer) Publish(context.Context, *currency.Currency_ID) (*currency.Currency, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
+}
+func (UnimplementedCurrencyServer) Unpublish(context.Context, *currency.Currency_ID) (*currency.Currency, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unpublish not implemented")
 }
 func (UnimplementedCurrencyServer) mustEmbedUnimplementedCurrencyServer() {}
 
@@ -179,6 +207,42 @@ func _Currency_Create_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Currency_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(currency.Currency_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CurrencyServer).Publish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.admin.currency.v1.Currency/Publish",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CurrencyServer).Publish(ctx, req.(*currency.Currency_ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Currency_Unpublish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(currency.Currency_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CurrencyServer).Unpublish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.admin.currency.v1.Currency/Unpublish",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CurrencyServer).Unpublish(ctx, req.(*currency.Currency_ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Currency_ServiceDesc is the grpc.ServiceDesc for Currency service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -193,6 +257,14 @@ var Currency_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _Currency_Create_Handler,
+		},
+		{
+			MethodName: "Publish",
+			Handler:    _Currency_Publish_Handler,
+		},
+		{
+			MethodName: "Unpublish",
+			Handler:    _Currency_Unpublish_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

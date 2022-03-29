@@ -20,6 +20,12 @@ protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/staking.proto=bico
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/ticket.proto=biconom/type/ticket biconom/type/ticket.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/until.proto=biconom/type/until biconom/type/until.proto
 
+#auth
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/auth/v1/auth.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/auth/v1/auth.proto
+#confirmation
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/confirmation/v1/confirmation_self.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/confirmation/v1/confirmation_self.proto
 #currency
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/currency/v1/currency_pair.proto
@@ -32,19 +38,21 @@ protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency_pair.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency_pair_rate_source.proto
-#auth
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/auth/v1/auth.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/auth/v1/auth.proto
-#confirmation
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/confirmation/v1/confirmation.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/confirmation/v1/confirmation_self.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/confirmation/v1/confirmation.proto
-
-
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/auth/v1/auth.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/confirmation/v1/confirmation.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/currency/v1/currency.proto
-protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/session/v1/session.proto
+#rank
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank_account.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank_network_statistics.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank_statistics.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank_system.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/admin/rank/v1/rank_system_account.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank_account.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank_network_statistics.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank_statistics.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank_system.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/rank/v1/rank_system_account.proto
 ```
 
-biconom.admin.currency.v1;
+```bash
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative biconom/client/session/v1/session.proto
+```

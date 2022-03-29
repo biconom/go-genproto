@@ -28,6 +28,8 @@ type CurrencyPairRateSourceClient interface {
 	List(ctx context.Context, in *CurrencyPairRateSourceListRequest, opts ...grpc.CallOption) (CurrencyPairRateSource_ListClient, error)
 	ListByPair(ctx context.Context, in *CurrencyPairRateSourceListByPairRequest, opts ...grpc.CallOption) (CurrencyPairRateSource_ListByPairClient, error)
 	Create(ctx context.Context, in *CurrencyPairRateSourceCreateRequest, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source, error)
+	Publish(ctx context.Context, in *currency.Currency_Pair_Rate_Source_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error)
+	Unpublish(ctx context.Context, in *currency.Currency_Pair_Rate_Source_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error)
 	HeaderGet(ctx context.Context, in *currency.Currency_Pair_Rate_Source_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error)
 	HeaderList(ctx context.Context, in *CurrencyPairRateSourceListRequest, opts ...grpc.CallOption) (CurrencyPairRateSource_HeaderListClient, error)
 	HeaderListByPair(ctx context.Context, in *CurrencyPairRateSourceListByPairRequest, opts ...grpc.CallOption) (CurrencyPairRateSource_HeaderListByPairClient, error)
@@ -129,6 +131,24 @@ func (x *currencyPairRateSourceListByPairClient) Recv() (*currency.Currency_Pair
 func (c *currencyPairRateSourceClient) Create(ctx context.Context, in *CurrencyPairRateSourceCreateRequest, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source, error) {
 	out := new(currency.Currency_Pair_Rate_Source)
 	err := c.cc.Invoke(ctx, "/biconom.admin.currency.v1.CurrencyPairRateSource/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *currencyPairRateSourceClient) Publish(ctx context.Context, in *currency.Currency_Pair_Rate_Source_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error) {
+	out := new(currency.Currency_Pair_Rate_Source_Header)
+	err := c.cc.Invoke(ctx, "/biconom.admin.currency.v1.CurrencyPairRateSource/Publish", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *currencyPairRateSourceClient) Unpublish(ctx context.Context, in *currency.Currency_Pair_Rate_Source_ID, opts ...grpc.CallOption) (*currency.Currency_Pair_Rate_Source_Header, error) {
+	out := new(currency.Currency_Pair_Rate_Source_Header)
+	err := c.cc.Invoke(ctx, "/biconom.admin.currency.v1.CurrencyPairRateSource/Unpublish", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -439,6 +459,8 @@ type CurrencyPairRateSourceServer interface {
 	List(*CurrencyPairRateSourceListRequest, CurrencyPairRateSource_ListServer) error
 	ListByPair(*CurrencyPairRateSourceListByPairRequest, CurrencyPairRateSource_ListByPairServer) error
 	Create(context.Context, *CurrencyPairRateSourceCreateRequest) (*currency.Currency_Pair_Rate_Source, error)
+	Publish(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error)
+	Unpublish(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error)
 	HeaderGet(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error)
 	HeaderList(*CurrencyPairRateSourceListRequest, CurrencyPairRateSource_HeaderListServer) error
 	HeaderListByPair(*CurrencyPairRateSourceListByPairRequest, CurrencyPairRateSource_HeaderListByPairServer) error
@@ -472,6 +494,12 @@ func (UnimplementedCurrencyPairRateSourceServer) ListByPair(*CurrencyPairRateSou
 }
 func (UnimplementedCurrencyPairRateSourceServer) Create(context.Context, *CurrencyPairRateSourceCreateRequest) (*currency.Currency_Pair_Rate_Source, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedCurrencyPairRateSourceServer) Publish(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
+}
+func (UnimplementedCurrencyPairRateSourceServer) Unpublish(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Unpublish not implemented")
 }
 func (UnimplementedCurrencyPairRateSourceServer) HeaderGet(context.Context, *currency.Currency_Pair_Rate_Source_ID) (*currency.Currency_Pair_Rate_Source_Header, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HeaderGet not implemented")
@@ -606,6 +634,42 @@ func _CurrencyPairRateSource_Create_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CurrencyPairRateSourceServer).Create(ctx, req.(*CurrencyPairRateSourceCreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CurrencyPairRateSource_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(currency.Currency_Pair_Rate_Source_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CurrencyPairRateSourceServer).Publish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.admin.currency.v1.CurrencyPairRateSource/Publish",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CurrencyPairRateSourceServer).Publish(ctx, req.(*currency.Currency_Pair_Rate_Source_ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CurrencyPairRateSource_Unpublish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(currency.Currency_Pair_Rate_Source_ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CurrencyPairRateSourceServer).Unpublish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/biconom.admin.currency.v1.CurrencyPairRateSource/Unpublish",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CurrencyPairRateSourceServer).Unpublish(ctx, req.(*currency.Currency_Pair_Rate_Source_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -915,6 +979,14 @@ var CurrencyPairRateSource_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _CurrencyPairRateSource_Create_Handler,
+		},
+		{
+			MethodName: "Publish",
+			Handler:    _CurrencyPairRateSource_Publish_Handler,
+		},
+		{
+			MethodName: "Unpublish",
+			Handler:    _CurrencyPairRateSource_Unpublish_Handler,
 		},
 		{
 			MethodName: "HeaderGet",
