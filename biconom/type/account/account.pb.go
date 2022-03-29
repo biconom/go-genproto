@@ -10,7 +10,7 @@ import (
 	condition "github.com/biconom/go-genproto/biconom/type/condition"
 	contact "github.com/biconom/go-genproto/biconom/type/contact"
 	profile "github.com/biconom/go-genproto/biconom/type/profile"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -218,8 +218,8 @@ type Account_RankSystem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Header *rank.RankSystem_Header    `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Ranks  []*Account_RankSystem_Rank `protobuf:"bytes,2,rep,name=ranks,proto3" json:"ranks,omitempty"`
+	Header *rank_system.RankSystem_Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Ranks  []*Account_RankSystem_Rank     `protobuf:"bytes,2,rep,name=ranks,proto3" json:"ranks,omitempty"`
 }
 
 func (x *Account_RankSystem) Reset() {
@@ -254,7 +254,7 @@ func (*Account_RankSystem) Descriptor() ([]byte, []int) {
 	return file_biconom_type_account_proto_rawDescGZIP(), []int{0, 2}
 }
 
-func (x *Account_RankSystem) GetHeader() *rank.RankSystem_Header {
+func (x *Account_RankSystem) GetHeader() *rank_system.RankSystem_Header {
 	if x != nil {
 		return x.Header
 	}
@@ -336,8 +336,8 @@ type Account_RankSystem_ID struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Account    *Account_ID         `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
-	RankSystem *rank.RankSystem_ID `protobuf:"bytes,2,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
+	Account    *Account_ID                `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	RankSystem *rank_system.RankSystem_ID `protobuf:"bytes,2,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
 }
 
 func (x *Account_RankSystem_ID) Reset() {
@@ -379,7 +379,7 @@ func (x *Account_RankSystem_ID) GetAccount() *Account_ID {
 	return nil
 }
 
-func (x *Account_RankSystem_ID) GetRankSystem() *rank.RankSystem_ID {
+func (x *Account_RankSystem_ID) GetRankSystem() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.RankSystem
 	}
@@ -391,11 +391,11 @@ type Account_RankSystem_Rank struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Header     *rank.RankSystem_Rank_Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Condition  *condition.Condition         `protobuf:"bytes,2,opt,name=condition,proto3" json:"condition,omitempty"`
-	Achieved   bool                         `protobuf:"varint,3,opt,name=achieved,proto3" json:"achieved,omitempty"`
-	AchievedAt uint32                       `protobuf:"varint,4,opt,name=achieved_at,json=achievedAt,proto3" json:"achieved_at,omitempty"`
-	Activated  bool                         `protobuf:"varint,5,opt,name=activated,proto3" json:"activated,omitempty"`
+	Header     *rank_system.RankSystem_Rank_Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Condition  *condition.Condition                `protobuf:"bytes,2,opt,name=condition,proto3" json:"condition,omitempty"`
+	Achieved   bool                                `protobuf:"varint,3,opt,name=achieved,proto3" json:"achieved,omitempty"`
+	AchievedAt uint32                              `protobuf:"varint,4,opt,name=achieved_at,json=achievedAt,proto3" json:"achieved_at,omitempty"`
+	Activated  bool                                `protobuf:"varint,5,opt,name=activated,proto3" json:"activated,omitempty"`
 }
 
 func (x *Account_RankSystem_Rank) Reset() {
@@ -430,7 +430,7 @@ func (*Account_RankSystem_Rank) Descriptor() ([]byte, []int) {
 	return file_biconom_type_account_proto_rawDescGZIP(), []int{0, 2, 1}
 }
 
-func (x *Account_RankSystem_Rank) GetHeader() *rank.RankSystem_Rank_Header {
+func (x *Account_RankSystem_Rank) GetHeader() *rank_system.RankSystem_Rank_Header {
 	if x != nil {
 		return x.Header
 	}
@@ -470,8 +470,8 @@ type Account_RankSystem_Option struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Header *rank.RankSystem_Header  `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Rank   *Account_RankSystem_Rank `protobuf:"bytes,2,opt,name=rank,proto3" json:"rank,omitempty"`
+	Header *rank_system.RankSystem_Header `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Rank   *Account_RankSystem_Rank       `protobuf:"bytes,2,opt,name=rank,proto3" json:"rank,omitempty"`
 }
 
 func (x *Account_RankSystem_Option) Reset() {
@@ -506,7 +506,7 @@ func (*Account_RankSystem_Option) Descriptor() ([]byte, []int) {
 	return file_biconom_type_account_proto_rawDescGZIP(), []int{0, 2, 2}
 }
 
-func (x *Account_RankSystem_Option) GetHeader() *rank.RankSystem_Header {
+func (x *Account_RankSystem_Option) GetHeader() *rank_system.RankSystem_Header {
 	if x != nil {
 		return x.Header
 	}
@@ -525,8 +525,8 @@ type Account_RankSystem_Rank_ID struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Account *Account_ID              `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
-	Rank    *rank.RankSystem_Rank_ID `protobuf:"bytes,2,opt,name=rank,proto3" json:"rank,omitempty"`
+	Account *Account_ID                     `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Rank    *rank_system.RankSystem_Rank_ID `protobuf:"bytes,2,opt,name=rank,proto3" json:"rank,omitempty"`
 }
 
 func (x *Account_RankSystem_Rank_ID) Reset() {
@@ -568,7 +568,7 @@ func (x *Account_RankSystem_Rank_ID) GetAccount() *Account_ID {
 	return nil
 }
 
-func (x *Account_RankSystem_Rank_ID) GetRank() *rank.RankSystem_Rank_ID {
+func (x *Account_RankSystem_Rank_ID) GetRank() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Rank
 	}
@@ -678,22 +678,22 @@ func file_biconom_type_account_proto_rawDescGZIP() []byte {
 
 var file_biconom_type_account_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_biconom_type_account_proto_goTypes = []interface{}{
-	(*Account)(nil),                     // 0: biconom.type.Account
-	(*Account_ID)(nil),                  // 1: biconom.type.Account.ID
-	(*Account_Contact)(nil),             // 2: biconom.type.Account.Contact
-	(*Account_RankSystem)(nil),          // 3: biconom.type.Account.RankSystem
-	(*Account_Header)(nil),              // 4: biconom.type.Account.Header
-	(*Account_RankSystem_ID)(nil),       // 5: biconom.type.Account.RankSystem.ID
-	(*Account_RankSystem_Rank)(nil),     // 6: biconom.type.Account.RankSystem.Rank
-	(*Account_RankSystem_Option)(nil),   // 7: biconom.type.Account.RankSystem.Option
-	(*Account_RankSystem_Rank_ID)(nil),  // 8: biconom.type.Account.RankSystem.Rank.ID
-	(*contact.Contact)(nil),             // 9: biconom.type.Contact
-	(*rank.RankSystem_Header)(nil),      // 10: biconom.type.RankSystem.Header
-	(*profile.Profile)(nil),             // 11: biconom.type.Profile
-	(*rank.RankSystem_ID)(nil),          // 12: biconom.type.RankSystem.ID
-	(*rank.RankSystem_Rank_Header)(nil), // 13: biconom.type.RankSystem.Rank.Header
-	(*condition.Condition)(nil),         // 14: biconom.type.Condition
-	(*rank.RankSystem_Rank_ID)(nil),     // 15: biconom.type.RankSystem.Rank.ID
+	(*Account)(nil),                            // 0: biconom.type.Account
+	(*Account_ID)(nil),                         // 1: biconom.type.Account.ID
+	(*Account_Contact)(nil),                    // 2: biconom.type.Account.Contact
+	(*Account_RankSystem)(nil),                 // 3: biconom.type.Account.RankSystem
+	(*Account_Header)(nil),                     // 4: biconom.type.Account.Header
+	(*Account_RankSystem_ID)(nil),              // 5: biconom.type.Account.RankSystem.ID
+	(*Account_RankSystem_Rank)(nil),            // 6: biconom.type.Account.RankSystem.Rank
+	(*Account_RankSystem_Option)(nil),          // 7: biconom.type.Account.RankSystem.Option
+	(*Account_RankSystem_Rank_ID)(nil),         // 8: biconom.type.Account.RankSystem.Rank.ID
+	(*contact.Contact)(nil),                    // 9: biconom.type.Contact
+	(*rank_system.RankSystem_Header)(nil),      // 10: biconom.type.RankSystem.Header
+	(*profile.Profile)(nil),                    // 11: biconom.type.Profile
+	(*rank_system.RankSystem_ID)(nil),          // 12: biconom.type.RankSystem.ID
+	(*rank_system.RankSystem_Rank_Header)(nil), // 13: biconom.type.RankSystem.Rank.Header
+	(*condition.Condition)(nil),                // 14: biconom.type.Condition
+	(*rank_system.RankSystem_Rank_ID)(nil),     // 15: biconom.type.RankSystem.Rank.ID
 }
 var file_biconom_type_account_proto_depIdxs = []int32{
 	9,  // 0: biconom.type.Account.Contact.contact:type_name -> biconom.type.Contact

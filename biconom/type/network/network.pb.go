@@ -10,7 +10,7 @@ import (
 	account "github.com/biconom/go-genproto/biconom/type/account"
 	activity "github.com/biconom/go-genproto/biconom/type/activity"
 	contact "github.com/biconom/go-genproto/biconom/type/contact"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -67,11 +67,11 @@ type Network_Account struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Account          *account.Account_Header `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
-	Referral         *account.Account_Header `protobuf:"bytes,2,opt,name=referral,proto3" json:"referral,omitempty"`
-	Contacts         []*contact.Contact      `protobuf:"bytes,3,rep,name=contacts,proto3" json:"contacts,omitempty"`
-	RankSystems      []*rank.RankSystem      `protobuf:"bytes,5,rep,name=rank_systems,json=rankSystems,proto3" json:"rank_systems,omitempty"`
-	ActivityCounters []*activity.Activity    `protobuf:"bytes,6,rep,name=activity_counters,json=activityCounters,proto3" json:"activity_counters,omitempty"`
+	Account          *account.Account_Header   `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Referral         *account.Account_Header   `protobuf:"bytes,2,opt,name=referral,proto3" json:"referral,omitempty"`
+	Contacts         []*contact.Contact        `protobuf:"bytes,3,rep,name=contacts,proto3" json:"contacts,omitempty"`
+	RankSystems      []*rank_system.RankSystem `protobuf:"bytes,5,rep,name=rank_systems,json=rankSystems,proto3" json:"rank_systems,omitempty"`
+	ActivityCounters []*activity.Activity      `protobuf:"bytes,6,rep,name=activity_counters,json=activityCounters,proto3" json:"activity_counters,omitempty"`
 }
 
 func (x *Network_Account) Reset() {
@@ -127,7 +127,7 @@ func (x *Network_Account) GetContacts() []*contact.Contact {
 	return nil
 }
 
-func (x *Network_Account) GetRankSystems() []*rank.RankSystem {
+func (x *Network_Account) GetRankSystems() []*rank_system.RankSystem {
 	if x != nil {
 		return x.RankSystems
 	}
@@ -199,7 +199,7 @@ var file_biconom_type_network_proto_goTypes = []interface{}{
 	(*Network_Account)(nil),        // 1: biconom.type.Network.Account
 	(*account.Account_Header)(nil), // 2: biconom.type.Account.Header
 	(*contact.Contact)(nil),        // 3: biconom.type.Contact
-	(*rank.RankSystem)(nil),        // 4: biconom.type.RankSystem
+	(*rank_system.RankSystem)(nil), // 4: biconom.type.RankSystem
 	(*activity.Activity)(nil),      // 5: biconom.type.Activity
 }
 var file_biconom_type_network_proto_depIdxs = []int32{
