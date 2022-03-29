@@ -9,6 +9,7 @@ package service_client_rank_pb
 import (
 	context "context"
 	account "github.com/biconom/go-genproto/biconom/type/account"
+	rank_statistics "github.com/biconom/go-genproto/biconom/type/rank_statistics"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -23,10 +24,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RankNetworkStatisticsClient interface {
-	AccountCountGet(ctx context.Context, in *account.Account_RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error)
+	AccountCountGet(ctx context.Context, in *account.Account_RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_statistics.RankStatistics_AccountCount, error)
 	AccountCountList(ctx context.Context, in *RankNetworkStatisticsAccountCountListRequest, opts ...grpc.CallOption) (RankNetworkStatistics_AccountCountListClient, error)
 	AccountCountListByRankSystem(ctx context.Context, in *RankNetworkStatisticsAccountCountListByRankSystemRequest, opts ...grpc.CallOption) (RankNetworkStatistics_AccountCountListByRankSystemClient, error)
-	AccountTopRankGet(ctx context.Context, in *RankStatisticsAccountTop_ID, opts ...grpc.CallOption) (*RankStatisticsAccountTop, error)
+	AccountTopRankGet(ctx context.Context, in *rank_statistics.RankStatistics_AccountTop_ID, opts ...grpc.CallOption) (*rank_statistics.RankStatistics_AccountTop, error)
 	AccountTopRankList(ctx context.Context, in *RankNetworkStatisticsAccountTopRankListRequest, opts ...grpc.CallOption) (RankNetworkStatistics_AccountTopRankListClient, error)
 	AccountTopRankListByRankSystem(ctx context.Context, in *RankNetworkStatisticsAccountTopRankListByRankSystemRequest, opts ...grpc.CallOption) (RankNetworkStatistics_AccountTopRankListByRankSystemClient, error)
 }
@@ -39,8 +40,8 @@ func NewRankNetworkStatisticsClient(cc grpc.ClientConnInterface) RankNetworkStat
 	return &rankNetworkStatisticsClient{cc}
 }
 
-func (c *rankNetworkStatisticsClient) AccountCountGet(ctx context.Context, in *account.Account_RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error) {
-	out := new(RankStatisticsAccountCount)
+func (c *rankNetworkStatisticsClient) AccountCountGet(ctx context.Context, in *account.Account_RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_statistics.RankStatistics_AccountCount, error) {
+	out := new(rank_statistics.RankStatistics_AccountCount)
 	err := c.cc.Invoke(ctx, "/biconom.client.rank.v1.RankNetworkStatistics/AccountCountGet", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -64,7 +65,7 @@ func (c *rankNetworkStatisticsClient) AccountCountList(ctx context.Context, in *
 }
 
 type RankNetworkStatistics_AccountCountListClient interface {
-	Recv() (*RankStatisticsAccountCount, error)
+	Recv() (*rank_statistics.RankStatistics_AccountCount, error)
 	grpc.ClientStream
 }
 
@@ -72,8 +73,8 @@ type rankNetworkStatisticsAccountCountListClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankNetworkStatisticsAccountCountListClient) Recv() (*RankStatisticsAccountCount, error) {
-	m := new(RankStatisticsAccountCount)
+func (x *rankNetworkStatisticsAccountCountListClient) Recv() (*rank_statistics.RankStatistics_AccountCount, error) {
+	m := new(rank_statistics.RankStatistics_AccountCount)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -96,7 +97,7 @@ func (c *rankNetworkStatisticsClient) AccountCountListByRankSystem(ctx context.C
 }
 
 type RankNetworkStatistics_AccountCountListByRankSystemClient interface {
-	Recv() (*RankStatisticsAccountCount, error)
+	Recv() (*rank_statistics.RankStatistics_AccountCount, error)
 	grpc.ClientStream
 }
 
@@ -104,16 +105,16 @@ type rankNetworkStatisticsAccountCountListByRankSystemClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankNetworkStatisticsAccountCountListByRankSystemClient) Recv() (*RankStatisticsAccountCount, error) {
-	m := new(RankStatisticsAccountCount)
+func (x *rankNetworkStatisticsAccountCountListByRankSystemClient) Recv() (*rank_statistics.RankStatistics_AccountCount, error) {
+	m := new(rank_statistics.RankStatistics_AccountCount)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *rankNetworkStatisticsClient) AccountTopRankGet(ctx context.Context, in *RankStatisticsAccountTop_ID, opts ...grpc.CallOption) (*RankStatisticsAccountTop, error) {
-	out := new(RankStatisticsAccountTop)
+func (c *rankNetworkStatisticsClient) AccountTopRankGet(ctx context.Context, in *rank_statistics.RankStatistics_AccountTop_ID, opts ...grpc.CallOption) (*rank_statistics.RankStatistics_AccountTop, error) {
+	out := new(rank_statistics.RankStatistics_AccountTop)
 	err := c.cc.Invoke(ctx, "/biconom.client.rank.v1.RankNetworkStatistics/AccountTopRankGet", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -137,7 +138,7 @@ func (c *rankNetworkStatisticsClient) AccountTopRankList(ctx context.Context, in
 }
 
 type RankNetworkStatistics_AccountTopRankListClient interface {
-	Recv() (*RankStatisticsAccountTop, error)
+	Recv() (*rank_statistics.RankStatistics_AccountTop, error)
 	grpc.ClientStream
 }
 
@@ -145,8 +146,8 @@ type rankNetworkStatisticsAccountTopRankListClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankNetworkStatisticsAccountTopRankListClient) Recv() (*RankStatisticsAccountTop, error) {
-	m := new(RankStatisticsAccountTop)
+func (x *rankNetworkStatisticsAccountTopRankListClient) Recv() (*rank_statistics.RankStatistics_AccountTop, error) {
+	m := new(rank_statistics.RankStatistics_AccountTop)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -169,7 +170,7 @@ func (c *rankNetworkStatisticsClient) AccountTopRankListByRankSystem(ctx context
 }
 
 type RankNetworkStatistics_AccountTopRankListByRankSystemClient interface {
-	Recv() (*RankStatisticsAccountTop, error)
+	Recv() (*rank_statistics.RankStatistics_AccountTop, error)
 	grpc.ClientStream
 }
 
@@ -177,8 +178,8 @@ type rankNetworkStatisticsAccountTopRankListByRankSystemClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankNetworkStatisticsAccountTopRankListByRankSystemClient) Recv() (*RankStatisticsAccountTop, error) {
-	m := new(RankStatisticsAccountTop)
+func (x *rankNetworkStatisticsAccountTopRankListByRankSystemClient) Recv() (*rank_statistics.RankStatistics_AccountTop, error) {
+	m := new(rank_statistics.RankStatistics_AccountTop)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -189,10 +190,10 @@ func (x *rankNetworkStatisticsAccountTopRankListByRankSystemClient) Recv() (*Ran
 // All implementations must embed UnimplementedRankNetworkStatisticsServer
 // for forward compatibility
 type RankNetworkStatisticsServer interface {
-	AccountCountGet(context.Context, *account.Account_RankSystem_Rank_ID) (*RankStatisticsAccountCount, error)
+	AccountCountGet(context.Context, *account.Account_RankSystem_Rank_ID) (*rank_statistics.RankStatistics_AccountCount, error)
 	AccountCountList(*RankNetworkStatisticsAccountCountListRequest, RankNetworkStatistics_AccountCountListServer) error
 	AccountCountListByRankSystem(*RankNetworkStatisticsAccountCountListByRankSystemRequest, RankNetworkStatistics_AccountCountListByRankSystemServer) error
-	AccountTopRankGet(context.Context, *RankStatisticsAccountTop_ID) (*RankStatisticsAccountTop, error)
+	AccountTopRankGet(context.Context, *rank_statistics.RankStatistics_AccountTop_ID) (*rank_statistics.RankStatistics_AccountTop, error)
 	AccountTopRankList(*RankNetworkStatisticsAccountTopRankListRequest, RankNetworkStatistics_AccountTopRankListServer) error
 	AccountTopRankListByRankSystem(*RankNetworkStatisticsAccountTopRankListByRankSystemRequest, RankNetworkStatistics_AccountTopRankListByRankSystemServer) error
 	mustEmbedUnimplementedRankNetworkStatisticsServer()
@@ -202,7 +203,7 @@ type RankNetworkStatisticsServer interface {
 type UnimplementedRankNetworkStatisticsServer struct {
 }
 
-func (UnimplementedRankNetworkStatisticsServer) AccountCountGet(context.Context, *account.Account_RankSystem_Rank_ID) (*RankStatisticsAccountCount, error) {
+func (UnimplementedRankNetworkStatisticsServer) AccountCountGet(context.Context, *account.Account_RankSystem_Rank_ID) (*rank_statistics.RankStatistics_AccountCount, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountCountGet not implemented")
 }
 func (UnimplementedRankNetworkStatisticsServer) AccountCountList(*RankNetworkStatisticsAccountCountListRequest, RankNetworkStatistics_AccountCountListServer) error {
@@ -211,7 +212,7 @@ func (UnimplementedRankNetworkStatisticsServer) AccountCountList(*RankNetworkSta
 func (UnimplementedRankNetworkStatisticsServer) AccountCountListByRankSystem(*RankNetworkStatisticsAccountCountListByRankSystemRequest, RankNetworkStatistics_AccountCountListByRankSystemServer) error {
 	return status.Errorf(codes.Unimplemented, "method AccountCountListByRankSystem not implemented")
 }
-func (UnimplementedRankNetworkStatisticsServer) AccountTopRankGet(context.Context, *RankStatisticsAccountTop_ID) (*RankStatisticsAccountTop, error) {
+func (UnimplementedRankNetworkStatisticsServer) AccountTopRankGet(context.Context, *rank_statistics.RankStatistics_AccountTop_ID) (*rank_statistics.RankStatistics_AccountTop, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountTopRankGet not implemented")
 }
 func (UnimplementedRankNetworkStatisticsServer) AccountTopRankList(*RankNetworkStatisticsAccountTopRankListRequest, RankNetworkStatistics_AccountTopRankListServer) error {
@@ -260,7 +261,7 @@ func _RankNetworkStatistics_AccountCountList_Handler(srv interface{}, stream grp
 }
 
 type RankNetworkStatistics_AccountCountListServer interface {
-	Send(*RankStatisticsAccountCount) error
+	Send(*rank_statistics.RankStatistics_AccountCount) error
 	grpc.ServerStream
 }
 
@@ -268,7 +269,7 @@ type rankNetworkStatisticsAccountCountListServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankNetworkStatisticsAccountCountListServer) Send(m *RankStatisticsAccountCount) error {
+func (x *rankNetworkStatisticsAccountCountListServer) Send(m *rank_statistics.RankStatistics_AccountCount) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -281,7 +282,7 @@ func _RankNetworkStatistics_AccountCountListByRankSystem_Handler(srv interface{}
 }
 
 type RankNetworkStatistics_AccountCountListByRankSystemServer interface {
-	Send(*RankStatisticsAccountCount) error
+	Send(*rank_statistics.RankStatistics_AccountCount) error
 	grpc.ServerStream
 }
 
@@ -289,12 +290,12 @@ type rankNetworkStatisticsAccountCountListByRankSystemServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankNetworkStatisticsAccountCountListByRankSystemServer) Send(m *RankStatisticsAccountCount) error {
+func (x *rankNetworkStatisticsAccountCountListByRankSystemServer) Send(m *rank_statistics.RankStatistics_AccountCount) error {
 	return x.ServerStream.SendMsg(m)
 }
 
 func _RankNetworkStatistics_AccountTopRankGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RankStatisticsAccountTop_ID)
+	in := new(rank_statistics.RankStatistics_AccountTop_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -306,7 +307,7 @@ func _RankNetworkStatistics_AccountTopRankGet_Handler(srv interface{}, ctx conte
 		FullMethod: "/biconom.client.rank.v1.RankNetworkStatistics/AccountTopRankGet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankNetworkStatisticsServer).AccountTopRankGet(ctx, req.(*RankStatisticsAccountTop_ID))
+		return srv.(RankNetworkStatisticsServer).AccountTopRankGet(ctx, req.(*rank_statistics.RankStatistics_AccountTop_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -320,7 +321,7 @@ func _RankNetworkStatistics_AccountTopRankList_Handler(srv interface{}, stream g
 }
 
 type RankNetworkStatistics_AccountTopRankListServer interface {
-	Send(*RankStatisticsAccountTop) error
+	Send(*rank_statistics.RankStatistics_AccountTop) error
 	grpc.ServerStream
 }
 
@@ -328,7 +329,7 @@ type rankNetworkStatisticsAccountTopRankListServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankNetworkStatisticsAccountTopRankListServer) Send(m *RankStatisticsAccountTop) error {
+func (x *rankNetworkStatisticsAccountTopRankListServer) Send(m *rank_statistics.RankStatistics_AccountTop) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -341,7 +342,7 @@ func _RankNetworkStatistics_AccountTopRankListByRankSystem_Handler(srv interface
 }
 
 type RankNetworkStatistics_AccountTopRankListByRankSystemServer interface {
-	Send(*RankStatisticsAccountTop) error
+	Send(*rank_statistics.RankStatistics_AccountTop) error
 	grpc.ServerStream
 }
 
@@ -349,7 +350,7 @@ type rankNetworkStatisticsAccountTopRankListByRankSystemServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankNetworkStatisticsAccountTopRankListByRankSystemServer) Send(m *RankStatisticsAccountTop) error {
+func (x *rankNetworkStatisticsAccountTopRankListByRankSystemServer) Send(m *rank_statistics.RankStatistics_AccountTop) error {
 	return x.ServerStream.SendMsg(m)
 }
 

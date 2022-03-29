@@ -19,6 +19,7 @@ protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/payment_system.pro
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/position.proto=biconom/type/position biconom/type/position.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/profile.proto=biconom/type/profile biconom/type/profile.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/quests.proto=biconom/type/quests biconom/type/quests.proto
+protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/rank_statistics.proto=biconom/type/rank_statistics biconom/type/rank_statistics.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/rank_system.proto=biconom/type/rank_system biconom/type/rank_system.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/session.proto=biconom/type/session biconom/type/session.proto
 protoc -I $BICONOM_API_PATH --go_out=. --go_opt=Mbiconom/type/sort.proto=biconom/type/sort biconom/type/sort.proto
