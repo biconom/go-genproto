@@ -9,7 +9,7 @@ package service_admin_rank_pb
 import (
 	context "context"
 	condition "github.com/biconom/go-genproto/biconom/type/condition"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,18 +24,18 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RankClient interface {
-	Get(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Option, error)
+	Get(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Option, error)
 	List(ctx context.Context, in *RankListRequest, opts ...grpc.CallOption) (Rank_ListClient, error)
 	ListByRankSystem(ctx context.Context, in *RankListByRankSystemRequest, opts ...grpc.CallOption) (Rank_ListByRankSystemClient, error)
-	ValueGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Rank, error)
+	ValueGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank, error)
 	ValueList(ctx context.Context, in *RankListRequest, opts ...grpc.CallOption) (Rank_ValueListClient, error)
 	ValueListByRankSystem(ctx context.Context, in *RankListByRankSystemRequest, opts ...grpc.CallOption) (Rank_ValueListByRankSystemClient, error)
-	ValueHeaderGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Rank_Header, error)
+	ValueHeaderGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank_Header, error)
 	ValueHeaderList(ctx context.Context, in *RankListRequest, opts ...grpc.CallOption) (Rank_ValueHeaderListClient, error)
 	ValueHeaderListByRankSystem(ctx context.Context, in *RankListByRankSystemRequest, opts ...grpc.CallOption) (Rank_ValueHeaderListByRankSystemClient, error)
-	Create(ctx context.Context, in *RankCreateRequest, opts ...grpc.CallOption) (*rank.RankSystem_Option, error)
-	ConditionGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*condition.Condition, error)
-	ConditionAttach(ctx context.Context, in *RankConditionAttachRequest, opts ...grpc.CallOption) (*rank.RankSystem_Rank, error)
+	Create(ctx context.Context, in *RankCreateRequest, opts ...grpc.CallOption) (*rank_system.RankSystem_Option, error)
+	ConditionGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*condition.Condition, error)
+	ConditionAttach(ctx context.Context, in *RankConditionAttachRequest, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank, error)
 }
 
 type rankClient struct {
@@ -46,8 +46,8 @@ func NewRankClient(cc grpc.ClientConnInterface) RankClient {
 	return &rankClient{cc}
 }
 
-func (c *rankClient) Get(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Option, error) {
-	out := new(rank.RankSystem_Option)
+func (c *rankClient) Get(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Option, error) {
+	out := new(rank_system.RankSystem_Option)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -71,7 +71,7 @@ func (c *rankClient) List(ctx context.Context, in *RankListRequest, opts ...grpc
 }
 
 type Rank_ListClient interface {
-	Recv() (*rank.RankSystem_Option, error)
+	Recv() (*rank_system.RankSystem_Option, error)
 	grpc.ClientStream
 }
 
@@ -79,8 +79,8 @@ type rankListClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankListClient) Recv() (*rank.RankSystem_Option, error) {
-	m := new(rank.RankSystem_Option)
+func (x *rankListClient) Recv() (*rank_system.RankSystem_Option, error) {
+	m := new(rank_system.RankSystem_Option)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *rankClient) ListByRankSystem(ctx context.Context, in *RankListByRankSys
 }
 
 type Rank_ListByRankSystemClient interface {
-	Recv() (*rank.RankSystem_Option, error)
+	Recv() (*rank_system.RankSystem_Option, error)
 	grpc.ClientStream
 }
 
@@ -111,16 +111,16 @@ type rankListByRankSystemClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankListByRankSystemClient) Recv() (*rank.RankSystem_Option, error) {
-	m := new(rank.RankSystem_Option)
+func (x *rankListByRankSystemClient) Recv() (*rank_system.RankSystem_Option, error) {
+	m := new(rank_system.RankSystem_Option)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *rankClient) ValueGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Rank, error) {
-	out := new(rank.RankSystem_Rank)
+func (c *rankClient) ValueGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank, error) {
+	out := new(rank_system.RankSystem_Rank)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/ValueGet", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func (c *rankClient) ValueList(ctx context.Context, in *RankListRequest, opts ..
 }
 
 type Rank_ValueListClient interface {
-	Recv() (*rank.RankSystem_Rank, error)
+	Recv() (*rank_system.RankSystem_Rank, error)
 	grpc.ClientStream
 }
 
@@ -152,8 +152,8 @@ type rankValueListClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankValueListClient) Recv() (*rank.RankSystem_Rank, error) {
-	m := new(rank.RankSystem_Rank)
+func (x *rankValueListClient) Recv() (*rank_system.RankSystem_Rank, error) {
+	m := new(rank_system.RankSystem_Rank)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *rankClient) ValueListByRankSystem(ctx context.Context, in *RankListByRa
 }
 
 type Rank_ValueListByRankSystemClient interface {
-	Recv() (*rank.RankSystem_Rank, error)
+	Recv() (*rank_system.RankSystem_Rank, error)
 	grpc.ClientStream
 }
 
@@ -184,16 +184,16 @@ type rankValueListByRankSystemClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankValueListByRankSystemClient) Recv() (*rank.RankSystem_Rank, error) {
-	m := new(rank.RankSystem_Rank)
+func (x *rankValueListByRankSystemClient) Recv() (*rank_system.RankSystem_Rank, error) {
+	m := new(rank_system.RankSystem_Rank)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *rankClient) ValueHeaderGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank.RankSystem_Rank_Header, error) {
-	out := new(rank.RankSystem_Rank_Header)
+func (c *rankClient) ValueHeaderGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank_Header, error) {
+	out := new(rank_system.RankSystem_Rank_Header)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/ValueHeaderGet", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -217,7 +217,7 @@ func (c *rankClient) ValueHeaderList(ctx context.Context, in *RankListRequest, o
 }
 
 type Rank_ValueHeaderListClient interface {
-	Recv() (*rank.RankSystem_Rank_Header, error)
+	Recv() (*rank_system.RankSystem_Rank_Header, error)
 	grpc.ClientStream
 }
 
@@ -225,8 +225,8 @@ type rankValueHeaderListClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankValueHeaderListClient) Recv() (*rank.RankSystem_Rank_Header, error) {
-	m := new(rank.RankSystem_Rank_Header)
+func (x *rankValueHeaderListClient) Recv() (*rank_system.RankSystem_Rank_Header, error) {
+	m := new(rank_system.RankSystem_Rank_Header)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -249,7 +249,7 @@ func (c *rankClient) ValueHeaderListByRankSystem(ctx context.Context, in *RankLi
 }
 
 type Rank_ValueHeaderListByRankSystemClient interface {
-	Recv() (*rank.RankSystem_Rank_Header, error)
+	Recv() (*rank_system.RankSystem_Rank_Header, error)
 	grpc.ClientStream
 }
 
@@ -257,16 +257,16 @@ type rankValueHeaderListByRankSystemClient struct {
 	grpc.ClientStream
 }
 
-func (x *rankValueHeaderListByRankSystemClient) Recv() (*rank.RankSystem_Rank_Header, error) {
-	m := new(rank.RankSystem_Rank_Header)
+func (x *rankValueHeaderListByRankSystemClient) Recv() (*rank_system.RankSystem_Rank_Header, error) {
+	m := new(rank_system.RankSystem_Rank_Header)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *rankClient) Create(ctx context.Context, in *RankCreateRequest, opts ...grpc.CallOption) (*rank.RankSystem_Option, error) {
-	out := new(rank.RankSystem_Option)
+func (c *rankClient) Create(ctx context.Context, in *RankCreateRequest, opts ...grpc.CallOption) (*rank_system.RankSystem_Option, error) {
+	out := new(rank_system.RankSystem_Option)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -274,7 +274,7 @@ func (c *rankClient) Create(ctx context.Context, in *RankCreateRequest, opts ...
 	return out, nil
 }
 
-func (c *rankClient) ConditionGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*condition.Condition, error) {
+func (c *rankClient) ConditionGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*condition.Condition, error) {
 	out := new(condition.Condition)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/ConditionGet", in, out, opts...)
 	if err != nil {
@@ -283,8 +283,8 @@ func (c *rankClient) ConditionGet(ctx context.Context, in *rank.RankSystem_Rank_
 	return out, nil
 }
 
-func (c *rankClient) ConditionAttach(ctx context.Context, in *RankConditionAttachRequest, opts ...grpc.CallOption) (*rank.RankSystem_Rank, error) {
-	out := new(rank.RankSystem_Rank)
+func (c *rankClient) ConditionAttach(ctx context.Context, in *RankConditionAttachRequest, opts ...grpc.CallOption) (*rank_system.RankSystem_Rank, error) {
+	out := new(rank_system.RankSystem_Rank)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.Rank/ConditionAttach", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -296,18 +296,18 @@ func (c *rankClient) ConditionAttach(ctx context.Context, in *RankConditionAttac
 // All implementations must embed UnimplementedRankServer
 // for forward compatibility
 type RankServer interface {
-	Get(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Option, error)
+	Get(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Option, error)
 	List(*RankListRequest, Rank_ListServer) error
 	ListByRankSystem(*RankListByRankSystemRequest, Rank_ListByRankSystemServer) error
-	ValueGet(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Rank, error)
+	ValueGet(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Rank, error)
 	ValueList(*RankListRequest, Rank_ValueListServer) error
 	ValueListByRankSystem(*RankListByRankSystemRequest, Rank_ValueListByRankSystemServer) error
-	ValueHeaderGet(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Rank_Header, error)
+	ValueHeaderGet(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Rank_Header, error)
 	ValueHeaderList(*RankListRequest, Rank_ValueHeaderListServer) error
 	ValueHeaderListByRankSystem(*RankListByRankSystemRequest, Rank_ValueHeaderListByRankSystemServer) error
-	Create(context.Context, *RankCreateRequest) (*rank.RankSystem_Option, error)
-	ConditionGet(context.Context, *rank.RankSystem_Rank_ID) (*condition.Condition, error)
-	ConditionAttach(context.Context, *RankConditionAttachRequest) (*rank.RankSystem_Rank, error)
+	Create(context.Context, *RankCreateRequest) (*rank_system.RankSystem_Option, error)
+	ConditionGet(context.Context, *rank_system.RankSystem_Rank_ID) (*condition.Condition, error)
+	ConditionAttach(context.Context, *RankConditionAttachRequest) (*rank_system.RankSystem_Rank, error)
 	mustEmbedUnimplementedRankServer()
 }
 
@@ -315,7 +315,7 @@ type RankServer interface {
 type UnimplementedRankServer struct {
 }
 
-func (UnimplementedRankServer) Get(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Option, error) {
+func (UnimplementedRankServer) Get(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Option, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
 func (UnimplementedRankServer) List(*RankListRequest, Rank_ListServer) error {
@@ -324,7 +324,7 @@ func (UnimplementedRankServer) List(*RankListRequest, Rank_ListServer) error {
 func (UnimplementedRankServer) ListByRankSystem(*RankListByRankSystemRequest, Rank_ListByRankSystemServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListByRankSystem not implemented")
 }
-func (UnimplementedRankServer) ValueGet(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Rank, error) {
+func (UnimplementedRankServer) ValueGet(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Rank, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValueGet not implemented")
 }
 func (UnimplementedRankServer) ValueList(*RankListRequest, Rank_ValueListServer) error {
@@ -333,7 +333,7 @@ func (UnimplementedRankServer) ValueList(*RankListRequest, Rank_ValueListServer)
 func (UnimplementedRankServer) ValueListByRankSystem(*RankListByRankSystemRequest, Rank_ValueListByRankSystemServer) error {
 	return status.Errorf(codes.Unimplemented, "method ValueListByRankSystem not implemented")
 }
-func (UnimplementedRankServer) ValueHeaderGet(context.Context, *rank.RankSystem_Rank_ID) (*rank.RankSystem_Rank_Header, error) {
+func (UnimplementedRankServer) ValueHeaderGet(context.Context, *rank_system.RankSystem_Rank_ID) (*rank_system.RankSystem_Rank_Header, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValueHeaderGet not implemented")
 }
 func (UnimplementedRankServer) ValueHeaderList(*RankListRequest, Rank_ValueHeaderListServer) error {
@@ -342,13 +342,13 @@ func (UnimplementedRankServer) ValueHeaderList(*RankListRequest, Rank_ValueHeade
 func (UnimplementedRankServer) ValueHeaderListByRankSystem(*RankListByRankSystemRequest, Rank_ValueHeaderListByRankSystemServer) error {
 	return status.Errorf(codes.Unimplemented, "method ValueHeaderListByRankSystem not implemented")
 }
-func (UnimplementedRankServer) Create(context.Context, *RankCreateRequest) (*rank.RankSystem_Option, error) {
+func (UnimplementedRankServer) Create(context.Context, *RankCreateRequest) (*rank_system.RankSystem_Option, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedRankServer) ConditionGet(context.Context, *rank.RankSystem_Rank_ID) (*condition.Condition, error) {
+func (UnimplementedRankServer) ConditionGet(context.Context, *rank_system.RankSystem_Rank_ID) (*condition.Condition, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConditionGet not implemented")
 }
-func (UnimplementedRankServer) ConditionAttach(context.Context, *RankConditionAttachRequest) (*rank.RankSystem_Rank, error) {
+func (UnimplementedRankServer) ConditionAttach(context.Context, *RankConditionAttachRequest) (*rank_system.RankSystem_Rank, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConditionAttach not implemented")
 }
 func (UnimplementedRankServer) mustEmbedUnimplementedRankServer() {}
@@ -365,7 +365,7 @@ func RegisterRankServer(s grpc.ServiceRegistrar, srv RankServer) {
 }
 
 func _Rank_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(rank.RankSystem_Rank_ID)
+	in := new(rank_system.RankSystem_Rank_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -377,7 +377,7 @@ func _Rank_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{
 		FullMethod: "/biconom.admin.rank.v1.Rank/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankServer).Get(ctx, req.(*rank.RankSystem_Rank_ID))
+		return srv.(RankServer).Get(ctx, req.(*rank_system.RankSystem_Rank_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -391,7 +391,7 @@ func _Rank_List_Handler(srv interface{}, stream grpc.ServerStream) error {
 }
 
 type Rank_ListServer interface {
-	Send(*rank.RankSystem_Option) error
+	Send(*rank_system.RankSystem_Option) error
 	grpc.ServerStream
 }
 
@@ -399,7 +399,7 @@ type rankListServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankListServer) Send(m *rank.RankSystem_Option) error {
+func (x *rankListServer) Send(m *rank_system.RankSystem_Option) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -412,7 +412,7 @@ func _Rank_ListByRankSystem_Handler(srv interface{}, stream grpc.ServerStream) e
 }
 
 type Rank_ListByRankSystemServer interface {
-	Send(*rank.RankSystem_Option) error
+	Send(*rank_system.RankSystem_Option) error
 	grpc.ServerStream
 }
 
@@ -420,12 +420,12 @@ type rankListByRankSystemServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankListByRankSystemServer) Send(m *rank.RankSystem_Option) error {
+func (x *rankListByRankSystemServer) Send(m *rank_system.RankSystem_Option) error {
 	return x.ServerStream.SendMsg(m)
 }
 
 func _Rank_ValueGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(rank.RankSystem_Rank_ID)
+	in := new(rank_system.RankSystem_Rank_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -437,7 +437,7 @@ func _Rank_ValueGet_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/biconom.admin.rank.v1.Rank/ValueGet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankServer).ValueGet(ctx, req.(*rank.RankSystem_Rank_ID))
+		return srv.(RankServer).ValueGet(ctx, req.(*rank_system.RankSystem_Rank_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -451,7 +451,7 @@ func _Rank_ValueList_Handler(srv interface{}, stream grpc.ServerStream) error {
 }
 
 type Rank_ValueListServer interface {
-	Send(*rank.RankSystem_Rank) error
+	Send(*rank_system.RankSystem_Rank) error
 	grpc.ServerStream
 }
 
@@ -459,7 +459,7 @@ type rankValueListServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankValueListServer) Send(m *rank.RankSystem_Rank) error {
+func (x *rankValueListServer) Send(m *rank_system.RankSystem_Rank) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -472,7 +472,7 @@ func _Rank_ValueListByRankSystem_Handler(srv interface{}, stream grpc.ServerStre
 }
 
 type Rank_ValueListByRankSystemServer interface {
-	Send(*rank.RankSystem_Rank) error
+	Send(*rank_system.RankSystem_Rank) error
 	grpc.ServerStream
 }
 
@@ -480,12 +480,12 @@ type rankValueListByRankSystemServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankValueListByRankSystemServer) Send(m *rank.RankSystem_Rank) error {
+func (x *rankValueListByRankSystemServer) Send(m *rank_system.RankSystem_Rank) error {
 	return x.ServerStream.SendMsg(m)
 }
 
 func _Rank_ValueHeaderGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(rank.RankSystem_Rank_ID)
+	in := new(rank_system.RankSystem_Rank_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -497,7 +497,7 @@ func _Rank_ValueHeaderGet_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/biconom.admin.rank.v1.Rank/ValueHeaderGet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankServer).ValueHeaderGet(ctx, req.(*rank.RankSystem_Rank_ID))
+		return srv.(RankServer).ValueHeaderGet(ctx, req.(*rank_system.RankSystem_Rank_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -511,7 +511,7 @@ func _Rank_ValueHeaderList_Handler(srv interface{}, stream grpc.ServerStream) er
 }
 
 type Rank_ValueHeaderListServer interface {
-	Send(*rank.RankSystem_Rank_Header) error
+	Send(*rank_system.RankSystem_Rank_Header) error
 	grpc.ServerStream
 }
 
@@ -519,7 +519,7 @@ type rankValueHeaderListServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankValueHeaderListServer) Send(m *rank.RankSystem_Rank_Header) error {
+func (x *rankValueHeaderListServer) Send(m *rank_system.RankSystem_Rank_Header) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -532,7 +532,7 @@ func _Rank_ValueHeaderListByRankSystem_Handler(srv interface{}, stream grpc.Serv
 }
 
 type Rank_ValueHeaderListByRankSystemServer interface {
-	Send(*rank.RankSystem_Rank_Header) error
+	Send(*rank_system.RankSystem_Rank_Header) error
 	grpc.ServerStream
 }
 
@@ -540,7 +540,7 @@ type rankValueHeaderListByRankSystemServer struct {
 	grpc.ServerStream
 }
 
-func (x *rankValueHeaderListByRankSystemServer) Send(m *rank.RankSystem_Rank_Header) error {
+func (x *rankValueHeaderListByRankSystemServer) Send(m *rank_system.RankSystem_Rank_Header) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -563,7 +563,7 @@ func _Rank_Create_Handler(srv interface{}, ctx context.Context, dec func(interfa
 }
 
 func _Rank_ConditionGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(rank.RankSystem_Rank_ID)
+	in := new(rank_system.RankSystem_Rank_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -575,7 +575,7 @@ func _Rank_ConditionGet_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/biconom.admin.rank.v1.Rank/ConditionGet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankServer).ConditionGet(ctx, req.(*rank.RankSystem_Rank_ID))
+		return srv.(RankServer).ConditionGet(ctx, req.(*rank_system.RankSystem_Rank_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }

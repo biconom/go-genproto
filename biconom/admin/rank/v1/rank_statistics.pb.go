@@ -8,7 +8,7 @@ package service_admin_rank_pb
 
 import (
 	account "github.com/biconom/go-genproto/biconom/type/account"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	sort "github.com/biconom/go-genproto/biconom/type/sort"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -28,8 +28,8 @@ type RankStatisticsAccountCountListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Step *rank.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
-	Sort *sort.Sort               `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
+	Step *rank_system.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
+	Sort *sort.Sort                      `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
 }
 
 func (x *RankStatisticsAccountCountListRequest) Reset() {
@@ -64,7 +64,7 @@ func (*RankStatisticsAccountCountListRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *RankStatisticsAccountCountListRequest) GetStep() *rank.RankSystem_Rank_ID {
+func (x *RankStatisticsAccountCountListRequest) GetStep() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -83,9 +83,9 @@ type RankStatisticsAccountCountListByRankSystemRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RankSystem *rank.RankSystem_ID            `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
-	Step       *rank.RankSystem_Rank_ID_Inner `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
-	Sort       *sort.Sort                     `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	RankSystem *rank_system.RankSystem_ID            `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
+	Step       *rank_system.RankSystem_Rank_ID_Inner `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
+	Sort       *sort.Sort                            `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
 }
 
 func (x *RankStatisticsAccountCountListByRankSystemRequest) Reset() {
@@ -120,14 +120,14 @@ func (*RankStatisticsAccountCountListByRankSystemRequest) Descriptor() ([]byte, 
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RankStatisticsAccountCountListByRankSystemRequest) GetRankSystem() *rank.RankSystem_ID {
+func (x *RankStatisticsAccountCountListByRankSystemRequest) GetRankSystem() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.RankSystem
 	}
 	return nil
 }
 
-func (x *RankStatisticsAccountCountListByRankSystemRequest) GetStep() *rank.RankSystem_Rank_ID_Inner {
+func (x *RankStatisticsAccountCountListByRankSystemRequest) GetStep() *rank_system.RankSystem_Rank_ID_Inner {
 	if x != nil {
 		return x.Step
 	}
@@ -146,9 +146,9 @@ type RankStatisticsAccountTopRankListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TopLimit uint32                   `protobuf:"varint,1,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
-	Step     *rank.RankSystem_Rank_ID `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
-	Sort     *sort.Sort               `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	TopLimit uint32                          `protobuf:"varint,1,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
+	Step     *rank_system.RankSystem_Rank_ID `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
+	Sort     *sort.Sort                      `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
 }
 
 func (x *RankStatisticsAccountTopRankListRequest) Reset() {
@@ -190,7 +190,7 @@ func (x *RankStatisticsAccountTopRankListRequest) GetTopLimit() uint32 {
 	return 0
 }
 
-func (x *RankStatisticsAccountTopRankListRequest) GetStep() *rank.RankSystem_Rank_ID {
+func (x *RankStatisticsAccountTopRankListRequest) GetStep() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -209,10 +209,10 @@ type RankStatisticsAccountTopRankListByRankSystemRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RankSystem *rank.RankSystem_ID      `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
-	TopLimit   uint32                   `protobuf:"varint,2,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
-	Step       *rank.RankSystem_Rank_ID `protobuf:"bytes,3,opt,name=step,proto3" json:"step,omitempty"`
-	Sort       *sort.Sort               `protobuf:"bytes,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	RankSystem *rank_system.RankSystem_ID      `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
+	TopLimit   uint32                          `protobuf:"varint,2,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
+	Step       *rank_system.RankSystem_Rank_ID `protobuf:"bytes,3,opt,name=step,proto3" json:"step,omitempty"`
+	Sort       *sort.Sort                      `protobuf:"bytes,4,opt,name=sort,proto3" json:"sort,omitempty"`
 }
 
 func (x *RankStatisticsAccountTopRankListByRankSystemRequest) Reset() {
@@ -247,7 +247,7 @@ func (*RankStatisticsAccountTopRankListByRankSystemRequest) Descriptor() ([]byte
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *RankStatisticsAccountTopRankListByRankSystemRequest) GetRankSystem() *rank.RankSystem_ID {
+func (x *RankStatisticsAccountTopRankListByRankSystemRequest) GetRankSystem() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.RankSystem
 	}
@@ -261,7 +261,7 @@ func (x *RankStatisticsAccountTopRankListByRankSystemRequest) GetTopLimit() uint
 	return 0
 }
 
-func (x *RankStatisticsAccountTopRankListByRankSystemRequest) GetStep() *rank.RankSystem_Rank_ID {
+func (x *RankStatisticsAccountTopRankListByRankSystemRequest) GetStep() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -280,8 +280,8 @@ type RankStatisticsAccountCount struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Rank         *rank.RankSystem_Rank_Header `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
-	AccountCount uint32                       `protobuf:"varint,2,opt,name=account_count,json=accountCount,proto3" json:"account_count,omitempty"`
+	Rank         *rank_system.RankSystem_Rank_Header `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
+	AccountCount uint32                              `protobuf:"varint,2,opt,name=account_count,json=accountCount,proto3" json:"account_count,omitempty"`
 }
 
 func (x *RankStatisticsAccountCount) Reset() {
@@ -316,7 +316,7 @@ func (*RankStatisticsAccountCount) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *RankStatisticsAccountCount) GetRank() *rank.RankSystem_Rank_Header {
+func (x *RankStatisticsAccountCount) GetRank() *rank_system.RankSystem_Rank_Header {
 	if x != nil {
 		return x.Rank
 	}
@@ -335,7 +335,7 @@ type RankStatisticsAccountTop struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Rank     *rank.RankSystem_Header             `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
+	Rank     *rank_system.RankSystem_Header      `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
 	Accounts []*RankStatisticsAccountTop_Account `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty"`
 }
 
@@ -371,7 +371,7 @@ func (*RankStatisticsAccountTop) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *RankStatisticsAccountTop) GetRank() *rank.RankSystem_Header {
+func (x *RankStatisticsAccountTop) GetRank() *rank_system.RankSystem_Header {
 	if x != nil {
 		return x.Rank
 	}
@@ -390,8 +390,8 @@ type RankStatisticsAccountTop_ID struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Rank     *rank.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
-	TopLimit uint32                   `protobuf:"varint,2,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
+	Rank     *rank_system.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
+	TopLimit uint32                          `protobuf:"varint,2,opt,name=top_limit,json=topLimit,proto3" json:"top_limit,omitempty"`
 }
 
 func (x *RankStatisticsAccountTop_ID) Reset() {
@@ -426,7 +426,7 @@ func (*RankStatisticsAccountTop_ID) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_statistics_proto_rawDescGZIP(), []int{5, 0}
 }
 
-func (x *RankStatisticsAccountTop_ID) GetRank() *rank.RankSystem_Rank_ID {
+func (x *RankStatisticsAccountTop_ID) GetRank() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Rank
 	}
@@ -668,12 +668,12 @@ var file_biconom_admin_rank_v1_rank_statistics_proto_goTypes = []interface{}{
 	(*RankStatisticsAccountTop)(nil),                            // 5: biconom.admin.rank.v1.RankStatisticsAccountTop
 	(*RankStatisticsAccountTop_ID)(nil),                         // 6: biconom.admin.rank.v1.RankStatisticsAccountTop.ID
 	(*RankStatisticsAccountTop_Account)(nil),                    // 7: biconom.admin.rank.v1.RankStatisticsAccountTop.Account
-	(*rank.RankSystem_Rank_ID)(nil),                             // 8: biconom.type.RankSystem.Rank.ID
+	(*rank_system.RankSystem_Rank_ID)(nil),                      // 8: biconom.type.RankSystem.Rank.ID
 	(*sort.Sort)(nil),                                           // 9: biconom.type.Sort
-	(*rank.RankSystem_ID)(nil),                                  // 10: biconom.type.RankSystem.ID
-	(*rank.RankSystem_Rank_ID_Inner)(nil),                       // 11: biconom.type.RankSystem.Rank.ID.Inner
-	(*rank.RankSystem_Rank_Header)(nil),                         // 12: biconom.type.RankSystem.Rank.Header
-	(*rank.RankSystem_Header)(nil),                              // 13: biconom.type.RankSystem.Header
+	(*rank_system.RankSystem_ID)(nil),                           // 10: biconom.type.RankSystem.ID
+	(*rank_system.RankSystem_Rank_ID_Inner)(nil),                // 11: biconom.type.RankSystem.Rank.ID.Inner
+	(*rank_system.RankSystem_Rank_Header)(nil),                  // 12: biconom.type.RankSystem.Rank.Header
+	(*rank_system.RankSystem_Header)(nil),                       // 13: biconom.type.RankSystem.Header
 	(*account.Account_Header)(nil),                              // 14: biconom.type.Account.Header
 }
 var file_biconom_admin_rank_v1_rank_statistics_proto_depIdxs = []int32{

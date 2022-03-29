@@ -7,7 +7,7 @@
 package service_admin_rank_pb
 
 import (
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	sort "github.com/biconom/go-genproto/biconom/type/sort"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -27,9 +27,9 @@ type RankSystemListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Step                    *rank.RankSystem_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
-	Sort                    *sort.Sort          `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
-	OnlyPublishedRankSystem bool                `protobuf:"varint,3,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
+	Step                    *rank_system.RankSystem_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
+	Sort                    *sort.Sort                 `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
+	OnlyPublishedRankSystem bool                       `protobuf:"varint,3,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
 }
 
 func (x *RankSystemListRequest) Reset() {
@@ -64,7 +64,7 @@ func (*RankSystemListRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_system_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *RankSystemListRequest) GetStep() *rank.RankSystem_ID {
+func (x *RankSystemListRequest) GetStep() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -226,12 +226,12 @@ func file_biconom_admin_rank_v1_rank_system_proto_rawDescGZIP() []byte {
 
 var file_biconom_admin_rank_v1_rank_system_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_biconom_admin_rank_v1_rank_system_proto_goTypes = []interface{}{
-	(*RankSystemListRequest)(nil),   // 0: biconom.admin.rank.v1.RankSystemListRequest
-	(*RankSystemCreateRequest)(nil), // 1: biconom.admin.rank.v1.RankSystemCreateRequest
-	(*rank.RankSystem_ID)(nil),      // 2: biconom.type.RankSystem.ID
-	(*sort.Sort)(nil),               // 3: biconom.type.Sort
-	(*rank.RankSystem)(nil),         // 4: biconom.type.RankSystem
-	(*rank.RankSystem_Header)(nil),  // 5: biconom.type.RankSystem.Header
+	(*RankSystemListRequest)(nil),         // 0: biconom.admin.rank.v1.RankSystemListRequest
+	(*RankSystemCreateRequest)(nil),       // 1: biconom.admin.rank.v1.RankSystemCreateRequest
+	(*rank_system.RankSystem_ID)(nil),     // 2: biconom.type.RankSystem.ID
+	(*sort.Sort)(nil),                     // 3: biconom.type.Sort
+	(*rank_system.RankSystem)(nil),        // 4: biconom.type.RankSystem
+	(*rank_system.RankSystem_Header)(nil), // 5: biconom.type.RankSystem.Header
 }
 var file_biconom_admin_rank_v1_rank_system_proto_depIdxs = []int32{
 	2, // 0: biconom.admin.rank.v1.RankSystemListRequest.step:type_name -> biconom.type.RankSystem.ID

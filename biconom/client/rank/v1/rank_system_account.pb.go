@@ -8,7 +8,7 @@ package service_client_rank_pb
 
 import (
 	account "github.com/biconom/go-genproto/biconom/type/account"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	sort "github.com/biconom/go-genproto/biconom/type/sort"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -28,9 +28,9 @@ type RankSystemAccountListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Account *account.Account_ID `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
-	Step    *rank.RankSystem_ID `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
-	Sort    *sort.Sort          `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	Account *account.Account_ID        `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Step    *rank_system.RankSystem_ID `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
+	Sort    *sort.Sort                 `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
 }
 
 func (x *RankSystemAccountListRequest) Reset() {
@@ -72,7 +72,7 @@ func (x *RankSystemAccountListRequest) GetAccount() *account.Account_ID {
 	return nil
 }
 
-func (x *RankSystemAccountListRequest) GetStep() *rank.RankSystem_ID {
+func (x *RankSystemAccountListRequest) GetStep() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -91,7 +91,7 @@ type RankSystemAccountWithRankActivatedAndNextResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Header        *rank.RankSystem_Header          `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Header        *rank_system.RankSystem_Header   `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	RankActivated *account.Account_RankSystem_Rank `protobuf:"bytes,2,opt,name=rank_activated,json=rankActivated,proto3" json:"rank_activated,omitempty"`
 	RankNext      *account.Account_RankSystem_Rank `protobuf:"bytes,3,opt,name=rank_next,json=rankNext,proto3" json:"rank_next,omitempty"`
 }
@@ -128,7 +128,7 @@ func (*RankSystemAccountWithRankActivatedAndNextResponse) Descriptor() ([]byte, 
 	return file_biconom_client_rank_v1_rank_system_account_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RankSystemAccountWithRankActivatedAndNextResponse) GetHeader() *rank.RankSystem_Header {
+func (x *RankSystemAccountWithRankActivatedAndNextResponse) GetHeader() *rank_system.RankSystem_Header {
 	if x != nil {
 		return x.Header
 	}
@@ -260,9 +260,9 @@ var file_biconom_client_rank_v1_rank_system_account_proto_goTypes = []interface{
 	(*RankSystemAccountListRequest)(nil),                      // 0: biconom.client.rank.v1.RankSystemAccountListRequest
 	(*RankSystemAccountWithRankActivatedAndNextResponse)(nil), // 1: biconom.client.rank.v1.RankSystemAccountWithRankActivatedAndNextResponse
 	(*account.Account_ID)(nil),                                // 2: biconom.type.Account.ID
-	(*rank.RankSystem_ID)(nil),                                // 3: biconom.type.RankSystem.ID
+	(*rank_system.RankSystem_ID)(nil),                         // 3: biconom.type.RankSystem.ID
 	(*sort.Sort)(nil),                                         // 4: biconom.type.Sort
-	(*rank.RankSystem_Header)(nil),                            // 5: biconom.type.RankSystem.Header
+	(*rank_system.RankSystem_Header)(nil),                     // 5: biconom.type.RankSystem.Header
 	(*account.Account_RankSystem_Rank)(nil),                   // 6: biconom.type.Account.RankSystem.Rank
 	(*account.Account_RankSystem_ID)(nil),                     // 7: biconom.type.Account.RankSystem.ID
 	(*account.Account_RankSystem)(nil),                        // 8: biconom.type.Account.RankSystem

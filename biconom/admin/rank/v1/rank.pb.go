@@ -8,7 +8,7 @@ package service_admin_rank_pb
 
 import (
 	condition "github.com/biconom/go-genproto/biconom/type/condition"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	sort "github.com/biconom/go-genproto/biconom/type/sort"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -28,9 +28,9 @@ type RankListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Step                    *rank.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
-	Sort                    *sort.Sort               `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
-	OnlyPublishedRankSystem bool                     `protobuf:"varint,3,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
+	Step                    *rank_system.RankSystem_Rank_ID `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
+	Sort                    *sort.Sort                      `protobuf:"bytes,2,opt,name=sort,proto3" json:"sort,omitempty"`
+	OnlyPublishedRankSystem bool                            `protobuf:"varint,3,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
 }
 
 func (x *RankListRequest) Reset() {
@@ -65,7 +65,7 @@ func (*RankListRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *RankListRequest) GetStep() *rank.RankSystem_Rank_ID {
+func (x *RankListRequest) GetStep() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Step
 	}
@@ -91,10 +91,10 @@ type RankListByRankSystemRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RankSystem              *rank.RankSystem_ID            `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
-	Step                    *rank.RankSystem_Rank_ID_Inner `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
-	Sort                    *sort.Sort                     `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
-	OnlyPublishedRankSystem bool                           `protobuf:"varint,4,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
+	RankSystem              *rank_system.RankSystem_ID            `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
+	Step                    *rank_system.RankSystem_Rank_ID_Inner `protobuf:"bytes,2,opt,name=step,proto3" json:"step,omitempty"`
+	Sort                    *sort.Sort                            `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	OnlyPublishedRankSystem bool                                  `protobuf:"varint,4,opt,name=only_published_rank_system,json=onlyPublishedRankSystem,proto3" json:"only_published_rank_system,omitempty"`
 }
 
 func (x *RankListByRankSystemRequest) Reset() {
@@ -129,14 +129,14 @@ func (*RankListByRankSystemRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RankListByRankSystemRequest) GetRankSystem() *rank.RankSystem_ID {
+func (x *RankListByRankSystemRequest) GetRankSystem() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.RankSystem
 	}
 	return nil
 }
 
-func (x *RankListByRankSystemRequest) GetStep() *rank.RankSystem_Rank_ID_Inner {
+func (x *RankListByRankSystemRequest) GetStep() *rank_system.RankSystem_Rank_ID_Inner {
 	if x != nil {
 		return x.Step
 	}
@@ -162,7 +162,7 @@ type RankCreateRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RankSystem        *rank.RankSystem_ID              `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
+	RankSystem        *rank_system.RankSystem_ID       `protobuf:"bytes,1,opt,name=rank_system,json=rankSystem,proto3" json:"rank_system,omitempty"`
 	RankName          string                           `protobuf:"bytes,2,opt,name=rank_name,json=rankName,proto3" json:"rank_name,omitempty"`
 	Stars             uint32                           `protobuf:"varint,3,opt,name=stars,proto3" json:"stars,omitempty"`
 	ConditionTemplate *condition.Condition_Template_ID `protobuf:"bytes,4,opt,name=condition_template,json=conditionTemplate,proto3" json:"condition_template,omitempty"`
@@ -200,7 +200,7 @@ func (*RankCreateRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *RankCreateRequest) GetRankSystem() *rank.RankSystem_ID {
+func (x *RankCreateRequest) GetRankSystem() *rank_system.RankSystem_ID {
 	if x != nil {
 		return x.RankSystem
 	}
@@ -233,7 +233,7 @@ type RankConditionAttachRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Rank              *rank.RankSystem_Rank_ID         `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
+	Rank              *rank_system.RankSystem_Rank_ID  `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
 	ConditionTemplate *condition.Condition_Template_ID `protobuf:"bytes,2,opt,name=condition_template,json=conditionTemplate,proto3" json:"condition_template,omitempty"`
 }
 
@@ -269,7 +269,7 @@ func (*RankConditionAttachRequest) Descriptor() ([]byte, []int) {
 	return file_biconom_admin_rank_v1_rank_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *RankConditionAttachRequest) GetRank() *rank.RankSystem_Rank_ID {
+func (x *RankConditionAttachRequest) GetRank() *rank_system.RankSystem_Rank_ID {
 	if x != nil {
 		return x.Rank
 	}
@@ -439,19 +439,19 @@ func file_biconom_admin_rank_v1_rank_proto_rawDescGZIP() []byte {
 
 var file_biconom_admin_rank_v1_rank_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_biconom_admin_rank_v1_rank_proto_goTypes = []interface{}{
-	(*RankListRequest)(nil),                 // 0: biconom.admin.rank.v1.RankListRequest
-	(*RankListByRankSystemRequest)(nil),     // 1: biconom.admin.rank.v1.RankListByRankSystemRequest
-	(*RankCreateRequest)(nil),               // 2: biconom.admin.rank.v1.RankCreateRequest
-	(*RankConditionAttachRequest)(nil),      // 3: biconom.admin.rank.v1.RankConditionAttachRequest
-	(*rank.RankSystem_Rank_ID)(nil),         // 4: biconom.type.RankSystem.Rank.ID
-	(*sort.Sort)(nil),                       // 5: biconom.type.Sort
-	(*rank.RankSystem_ID)(nil),              // 6: biconom.type.RankSystem.ID
-	(*rank.RankSystem_Rank_ID_Inner)(nil),   // 7: biconom.type.RankSystem.Rank.ID.Inner
-	(*condition.Condition_Template_ID)(nil), // 8: biconom.type.Condition.Template.ID
-	(*rank.RankSystem_Option)(nil),          // 9: biconom.type.RankSystem.Option
-	(*rank.RankSystem_Rank)(nil),            // 10: biconom.type.RankSystem.Rank
-	(*rank.RankSystem_Rank_Header)(nil),     // 11: biconom.type.RankSystem.Rank.Header
-	(*condition.Condition)(nil),             // 12: biconom.type.Condition
+	(*RankListRequest)(nil),                      // 0: biconom.admin.rank.v1.RankListRequest
+	(*RankListByRankSystemRequest)(nil),          // 1: biconom.admin.rank.v1.RankListByRankSystemRequest
+	(*RankCreateRequest)(nil),                    // 2: biconom.admin.rank.v1.RankCreateRequest
+	(*RankConditionAttachRequest)(nil),           // 3: biconom.admin.rank.v1.RankConditionAttachRequest
+	(*rank_system.RankSystem_Rank_ID)(nil),       // 4: biconom.type.RankSystem.Rank.ID
+	(*sort.Sort)(nil),                            // 5: biconom.type.Sort
+	(*rank_system.RankSystem_ID)(nil),            // 6: biconom.type.RankSystem.ID
+	(*rank_system.RankSystem_Rank_ID_Inner)(nil), // 7: biconom.type.RankSystem.Rank.ID.Inner
+	(*condition.Condition_Template_ID)(nil),      // 8: biconom.type.Condition.Template.ID
+	(*rank_system.RankSystem_Option)(nil),        // 9: biconom.type.RankSystem.Option
+	(*rank_system.RankSystem_Rank)(nil),          // 10: biconom.type.RankSystem.Rank
+	(*rank_system.RankSystem_Rank_Header)(nil),   // 11: biconom.type.RankSystem.Rank.Header
+	(*condition.Condition)(nil),                  // 12: biconom.type.Condition
 }
 var file_biconom_admin_rank_v1_rank_proto_depIdxs = []int32{
 	4,  // 0: biconom.admin.rank.v1.RankListRequest.step:type_name -> biconom.type.RankSystem.Rank.ID

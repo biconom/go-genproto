@@ -8,7 +8,7 @@ package service_admin_rank_pb
 
 import (
 	context "context"
-	rank "github.com/biconom/go-genproto/biconom/type/rank"
+	rank_system "github.com/biconom/go-genproto/biconom/type/rank_system"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RankStatisticsClient interface {
-	AccountCountGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error)
+	AccountCountGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error)
 	AccountCountList(ctx context.Context, in *RankStatisticsAccountCountListRequest, opts ...grpc.CallOption) (RankStatistics_AccountCountListClient, error)
 	AccountCountListByRankSystem(ctx context.Context, in *RankStatisticsAccountCountListByRankSystemRequest, opts ...grpc.CallOption) (RankStatistics_AccountCountListByRankSystemClient, error)
 	AccountTopRankGet(ctx context.Context, in *RankStatisticsAccountTop_ID, opts ...grpc.CallOption) (*RankStatisticsAccountTop, error)
@@ -39,7 +39,7 @@ func NewRankStatisticsClient(cc grpc.ClientConnInterface) RankStatisticsClient {
 	return &rankStatisticsClient{cc}
 }
 
-func (c *rankStatisticsClient) AccountCountGet(ctx context.Context, in *rank.RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error) {
+func (c *rankStatisticsClient) AccountCountGet(ctx context.Context, in *rank_system.RankSystem_Rank_ID, opts ...grpc.CallOption) (*RankStatisticsAccountCount, error) {
 	out := new(RankStatisticsAccountCount)
 	err := c.cc.Invoke(ctx, "/biconom.admin.rank.v1.RankStatistics/AccountCountGet", in, out, opts...)
 	if err != nil {
@@ -189,7 +189,7 @@ func (x *rankStatisticsAccountTopRankListByRankSystemClient) Recv() (*RankStatis
 // All implementations must embed UnimplementedRankStatisticsServer
 // for forward compatibility
 type RankStatisticsServer interface {
-	AccountCountGet(context.Context, *rank.RankSystem_Rank_ID) (*RankStatisticsAccountCount, error)
+	AccountCountGet(context.Context, *rank_system.RankSystem_Rank_ID) (*RankStatisticsAccountCount, error)
 	AccountCountList(*RankStatisticsAccountCountListRequest, RankStatistics_AccountCountListServer) error
 	AccountCountListByRankSystem(*RankStatisticsAccountCountListByRankSystemRequest, RankStatistics_AccountCountListByRankSystemServer) error
 	AccountTopRankGet(context.Context, *RankStatisticsAccountTop_ID) (*RankStatisticsAccountTop, error)
@@ -202,7 +202,7 @@ type RankStatisticsServer interface {
 type UnimplementedRankStatisticsServer struct {
 }
 
-func (UnimplementedRankStatisticsServer) AccountCountGet(context.Context, *rank.RankSystem_Rank_ID) (*RankStatisticsAccountCount, error) {
+func (UnimplementedRankStatisticsServer) AccountCountGet(context.Context, *rank_system.RankSystem_Rank_ID) (*RankStatisticsAccountCount, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountCountGet not implemented")
 }
 func (UnimplementedRankStatisticsServer) AccountCountList(*RankStatisticsAccountCountListRequest, RankStatistics_AccountCountListServer) error {
@@ -234,7 +234,7 @@ func RegisterRankStatisticsServer(s grpc.ServiceRegistrar, srv RankStatisticsSer
 }
 
 func _RankStatistics_AccountCountGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(rank.RankSystem_Rank_ID)
+	in := new(rank_system.RankSystem_Rank_ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -246,7 +246,7 @@ func _RankStatistics_AccountCountGet_Handler(srv interface{}, ctx context.Contex
 		FullMethod: "/biconom.admin.rank.v1.RankStatistics/AccountCountGet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RankStatisticsServer).AccountCountGet(ctx, req.(*rank.RankSystem_Rank_ID))
+		return srv.(RankStatisticsServer).AccountCountGet(ctx, req.(*rank_system.RankSystem_Rank_ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
